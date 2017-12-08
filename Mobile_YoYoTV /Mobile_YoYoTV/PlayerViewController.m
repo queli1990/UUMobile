@@ -41,6 +41,7 @@
 @property (nonatomic,strong) UIView *relatedView;
 @property (nonatomic,strong) NSDictionary *playHistory;
 @property (nonatomic) BOOL isCollected;
+@property (nonatomic) BOOL isFromBtnClick;
 @property (nonatomic,strong) UICollectionView *collectionView;
 /*用来做中间变量，给collectionView的headerView中影片信息部分传值*/
 @property (nonatomic,strong) PlayerRequest *VimeoRequest;
@@ -68,6 +69,12 @@
 
 /**请求用户相关信息：是否收藏和播放记录**/
 - (void) requestData {
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    BOOL isLogin = userInfo;
+    if (!isLogin) {
+        [self requestVimeoData];
+        return;
+    }
     [SVProgressHUD showWithStatus:@"loading"];
     [[PlayerUserRequest new] requestUserVideoInfoWithID:[NSString stringWithFormat:@"%@",self.model.ID] andBlock:^(PlayerUserRequest *responseData) {
         self.isCollected = responseData.isCollected;
@@ -113,6 +120,7 @@
                 }
             }
             isHaveInitCollectionView ? [_collectionView reloadData] : [self initCollectionView];
+            _isFromBtnClick = NO;
             [self setNewModel];
             [SVProgressHUD dismiss];
         } andFailureBlock:^(PlayerRequest *responseData) {
@@ -135,7 +143,7 @@
         [self.playerView resetToPlayNewVideo:self.playerModel];
     }
     if (self.vimeoResponseArray) {
-        if ([_playHistory isKindOfClass:[NSDictionary class]]) {
+        if ([_playHistory isKindOfClass:[NSDictionary class]] && !_isFromBtnClick) {
             NSInteger historyIndex = [_playHistory[@"episodes"] integerValue];
             _currentIndex = historyIndex;
         }
@@ -148,6 +156,7 @@
         if ([_playHistory isKindOfClass:[NSDictionary class]]) {
             NSString *playedTimeStr = _playHistory[@"playbackProgress"];
             self.playerView.seekTime = [playedTimeStr integerValue];
+            _playHistory = nil;
         }
     }
 }
@@ -180,6 +189,7 @@
     if (index == _currentIndex) return;
     btn.selected = YES;
     _currentIndex = index;
+    _isFromBtnClick = YES;
     [self setNewModel];
 #pragma mark 播放记录
     [self postPlayRecord];
@@ -240,6 +250,11 @@
 //上传播放记录
 - (void) postPlayRecord {
     if (self.playerView.player.currentItem == nil) return;
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    BOOL isLogin = userInfo;
+    if (!isLogin) {
+        return;
+    }
     NSLog(@"%lld",self.playerView.player.currentTime.value/self.playerView.player.currentTime.timescale);
     CGFloat watchTime = self.playerView.player.currentTime.value/self.playerView.player.currentTime.timescale;
 
@@ -398,6 +413,7 @@
 
 //点中cell的相应事件
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    _playHistory = nil;
     HomeModel *model = self.storageArray[indexPath.row];
     
     BOOL isPay = ([[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue]);

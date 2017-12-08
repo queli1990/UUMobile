@@ -73,9 +73,9 @@ class PurchaseViewController: UIViewController {
     let userDefaults = UserDefaults.standard
     
     // Mark: Properties
-    var btnSubscribe = UIButton(type: UIButtonType.system) as UIButton;
-    var btnBack = UIButton(type: UIButtonType.system) as UIButton;
-    var btnRestore = UIButton(type: UIButtonType.system) as UIButton;
+    var btnSubscribe = UIButton(type: UIButtonType.custom) as UIButton;
+    var btnBack = UIButton(type: UIButtonType.custom) as UIButton;
+    var btnRestore = UIButton(type: UIButtonType.custom) as UIButton;
     var btnPolicy = UIButton(type: UIButtonType.system) as UIButton;
     var btnTerm = UIButton(type: UIButtonType.system) as UIButton;
     
@@ -155,9 +155,9 @@ class PurchaseViewController: UIViewController {
         
         
         let label = UILabel(frame: CGRect(x: 15, y: 0, width: screenWidth-30, height: 0));
-//        label.text = "    您想以每月1.85美元的价格订阅UUTV VIP吗？此订阅自动续费，购买之后，每月都会自动收费，除非您在当期结束前24小时取消订阅。订阅期长1月，每月收费1.85美元。iTunes 账户续费是在当期结束前24小时内扣费1.85美元。管理您的订阅和自动续费请通过您的账户设置。\n    隐私政策:http://100uu.tv:8099/AppleTV-Versions/policy.html\n    服务协议:http://100uu.tv:8099/AppleTV-Versions/term.html";
-        label.text = "    此订阅自动续费，每月都会自动收费，除非您在当期结束前24小时取消。订阅期长1月，每月收费1.85美元。iTunes 账户续费是在当期结束前24小时内扣费1.85美元。可在iTunes设置中取消此订阅。\n    隐私政策:http://100uu.tv:8099/AppleTV-Versions/policy.html\n    服务协议:http://100uu.tv:8099/AppleTV-Versions/term.html";
-        label.textColor = UIColor.black;
+//        label.text = "    此订阅自动续费，每月都会自动收费，除非您在当期结束前24小时取消。订阅期长1月，每月收费1.85美元。iTunes 账户续费是在当期结束前24小时内扣费1.85美元。可在iTunes设置中取消此订阅。\n    隐私政策:http://100uu.tv:8099/AppleTV-Versions/policy.html\n    服务协议:http://100uu.tv:8099/AppleTV-Versions/term.html";
+        label.text = "此订阅自动续费，每月都会自动收费，除非您在当期结束前24小时取消。订阅期长1月，每月收费1.00人民币。iTunes 账户续费是在当期结束前24小时内扣费1.00人民币。可在iTunes设置中取消此订阅。\n    隐私政策:http://100uu.tv:8099/AppleTV-Versions/policy.html\n    服务协议:http://100uu.tv:8099/AppleTV-Versions/term.html";
+        label.textColor = UIColor.white;
         label.textAlignment = .left
         let font = UIFont(name: btnTextFont, size: 16)
         label.font = font
@@ -166,21 +166,23 @@ class PurchaseViewController: UIViewController {
         label.numberOfLines = 0
         self.view.addSubview(label)
         
-        let policyBtn = UIButton(type: .system)
+        let policyBtn = UIButton(type: .custom)
         policyBtn.frame = CGRect(x: 50, y: label.frame.maxY+10, width: (screenWidth-50*2-30)/2, height: 25)
         policyBtn.setTitle("隐私政策", for: .normal)
-        policyBtn.backgroundColor = UIColor(red: 173/255.0, green: 173/255.0, blue: 173/255.0, alpha: 1)
-        policyBtn.layer.cornerRadius = 8;
+        policyBtn.setTitleColor(UIColor(rgb:0xFF8000), for: UIControlState.normal)
+        policyBtn.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0.6)
+        policyBtn.layer.cornerRadius = 3;
         policyBtn.titleLabel!.font =  UIFont(name:  btnTextFont, size: btnTextSize)!
         policyBtn.addTarget(self, action: #selector(policyBtnClicked(sender:)), for: .touchUpInside)
         self.view.addSubview(policyBtn)
         
         
-        let termBtn = UIButton(type: .system)
+        let termBtn = UIButton(type: .custom)
         termBtn.frame = CGRect(x: 50+(screenWidth-50*2-30)/2+30, y: policyBtn.frame.origin.y, width: (screenWidth-50*2-30)/2, height: 25)
         termBtn.setTitle("服务协议", for: .normal)
-        termBtn.backgroundColor = UIColor(red: 173/255.0, green: 173/255.0, blue: 173/255.0, alpha: 1)
-        termBtn.layer.cornerRadius = 8;
+        termBtn.setTitleColor(UIColor(rgb:0xFF8000), for: UIControlState.normal)
+        termBtn.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0.6)
+        termBtn.layer.cornerRadius = 3;
         termBtn.titleLabel!.font = UIFont(name: btnTextFont, size: btnTextSize)!
         termBtn.addTarget(self, action: #selector(termBtnClicked(sender:)), for: .touchUpInside)
         self.view.addSubview(termBtn)
@@ -206,23 +208,27 @@ class PurchaseViewController: UIViewController {
             let priceLabel:UILabel = UILabel(frame: CGRect(x: 15, y: policyBtn.frame.maxY + 30, width: screenWidth-30, height: 30))
             priceLabel.font = UIFont(name: btnTextFont, size: 28)
             priceLabel.textColor = UIColor(red: 250/255.0, green: 229/255.0, blue: 0/255.0, alpha: 1)
-            priceLabel.text = "USD 1.85 / 月"
+            priceLabel.text = "CNY 1.00 / 月"
             priceLabel.textAlignment = .center
             self.view.addSubview(priceLabel)
             
             // restore button
             btnRestore.setTitle("恢复购买", for: .normal)
+            btnRestore.setTitleColor(UIColor.white, for: UIControlState.normal)
             btnRestore.titleLabel!.font =  UIFont(name:  btnTextFont, size: btnTextSize)!
-            btnRestore.layer.cornerRadius = 8
-            btnRestore.backgroundColor = UIColor(red: 173/255.0, green: 173/255.0, blue: 173/255.0, alpha: 1)
+            btnRestore.layer.cornerRadius = 3
+            btnRestore.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0)
+            btnRestore.layer.borderWidth = 1
+            btnRestore.layer.borderColor = UIColor.white.cgColor
             btnRestore.frame = CGRect(x:15, y:screenHeight-btnHeight-2*gap, width:btnWidth, height:btnHeight)
             btnRestore.addTarget(self, action: #selector(restoreClicked(button:)), for: .primaryActionTriggered)
             self.view.addSubview(btnRestore)
             
             // subscribe button
             btnSubscribe.setTitle("立即订购", for: .normal)
-            btnSubscribe.backgroundColor = UIColor(red: 173/255.0, green: 173/255.0, blue: 173/255.0, alpha: 1)
-            btnSubscribe.layer.cornerRadius = 8
+            btnSubscribe.setTitleColor(UIColor(rgb:0xFF8000), for: UIControlState.normal)
+            btnSubscribe.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1)
+            btnSubscribe.layer.cornerRadius = 3
             btnSubscribe.titleLabel!.font =  UIFont(name:  btnTextFont, size: btnTextSize)!
             btnSubscribe.frame = CGRect(x:btnRestore.frame.maxX+gap, y:btnRestore.frame.origin.y, width:btnWidth, height:btnHeight)
             btnSubscribe.addTarget(self, action: #selector(subscribeClicked(button:)), for: .primaryActionTriggered)
@@ -231,8 +237,10 @@ class PurchaseViewController: UIViewController {
             // back button
             btnBack.setTitle("返回", for: .normal)
             btnBack.titleLabel!.font =  UIFont(name:  btnTextFont, size: btnTextSize)!
-            btnBack.layer.cornerRadius = 8
-            btnBack.backgroundColor = UIColor(red: 173/255.0, green: 173/255.0, blue: 173/255.0, alpha: 1)
+            btnBack.layer.borderWidth = 1
+            btnBack.layer.borderColor = UIColor.white.cgColor
+            btnBack.layer.cornerRadius = 3
+            btnBack.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0)
             btnBack.frame = CGRect(x:btnSubscribe.frame.maxX+gap, y:btnRestore.frame.origin.y, width:btnWidth, height:btnHeight)
             btnBack.addTarget(self, action: #selector(backClicked(sender:)), for: .primaryActionTriggered)
             self.view.addSubview(btnBack)
@@ -349,3 +357,20 @@ class PurchaseViewController: UIViewController {
     
 }
 
+extension UIColor {
+    convenience init(red: Int, green: Int, blue: Int) {
+        assert(red >= 0 && red <= 255, "Invalid red component")
+        assert(green >= 0 && green <= 255, "Invalid green component")
+        assert(blue >= 0 && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+    }
+    
+    convenience init(rgb: Int) {
+        self.init(
+            red: (rgb >> 16) & 0xFF,
+            green: (rgb >> 8) & 0xFF,
+            blue: rgb & 0xFF
+        )
+    }
+}

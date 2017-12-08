@@ -107,13 +107,13 @@
         PurchaseViewController *vc = [PurchaseViewController new];
         vc.isHideTab = YES;
 //        [self.navigationController pushViewController:vc animated:YES];
-        [[PushHelper new] pushController:self withOldController:self.navigationController andSetTabBarHidden:YES];
+        [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
     } else {
         PlayerViewController *vc = [[PlayerViewController alloc] init];
         vc.isHideTabbar = YES;
         vc.model = model;
 //        [self.navigationController pushViewController:vc animated:YES];
-        [[PushHelper new] pushController:self withOldController:self.navigationController andSetTabBarHidden:YES];
+        [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
     }
 }
 

@@ -55,8 +55,15 @@
         [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
     }
     if (indexPath.row == 2) {
-        PlayHistoryViewController *vc = [PlayHistoryViewController new];
-        [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+        NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+        BOOL isLogin = userInfo;
+        if (isLogin) {
+            PlayHistoryViewController *vc = [PlayHistoryViewController new];
+            [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+        } else {
+            LoginViewController *vc = [LoginViewController new];
+            [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+        }
     }
     if (indexPath.row == 3) {
         if (isLogin) {

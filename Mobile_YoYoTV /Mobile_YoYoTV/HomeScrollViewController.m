@@ -16,6 +16,7 @@
 #import "ChannelsView.h"
 #import "UIButton+BottomLineButton.h"
 #import "PlayHistoryViewController.h"
+#import "LoginViewController.h"
 
 @interface HomeScrollViewController () <TYTabPagerBarDataSource,TYTabPagerBarDelegate,TYPagerControllerDataSource,TYPagerControllerDelegate,didShowNavDelegate,selectNavIndexDelegate>
 @property(strong, nonatomic)NSArray<NSString *> *titles;
@@ -234,8 +235,15 @@
 }
 
 - (void) goPlayHistory:(UIButton *)btn {
-    PlayHistoryViewController *vc = [PlayHistoryViewController new];
-    [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    BOOL isLogin = userInfo;
+    if (isLogin) {
+        PlayHistoryViewController *vc = [PlayHistoryViewController new];
+        [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+    } else {
+        LoginViewController *vc = [LoginViewController new];
+        [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+    }
 }
 
 #pragma mark - TYTabPagerBarDataSource
