@@ -12,6 +12,7 @@
 #import "HomeCollectionViewCell.h"
 #import "PlayerViewController.h"
 #import "Mobile_YoYoTV-Swift.h"
+#import "LoginViewController.h"
 
 @interface ListViewController () <UICollectionViewDelegate,UICollectionViewDataSource>
 @property (nonatomic,strong) NSMutableArray *contentArray;
@@ -104,15 +105,21 @@
     HomeModel *model = self.contentArray[indexPath.row];
     BOOL isPay = ([[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue]);
     if (!isPay && model.pay) {
-        PurchaseViewController *vc = [PurchaseViewController new];
-        vc.isHideTab = YES;
-//        [self.navigationController pushViewController:vc animated:YES];
-        [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+        NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+        BOOL isLogin = dic;
+        if (isLogin) {
+            PurchaseViewController *vc = [PurchaseViewController new];
+            vc.isHideTab = YES;
+            [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+        } else {
+            LoginViewController *vc = [LoginViewController new];
+            vc.isHide = YES;
+            [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+        }
     } else {
         PlayerViewController *vc = [[PlayerViewController alloc] init];
         vc.isHideTabbar = YES;
         vc.model = model;
-//        [self.navigationController pushViewController:vc animated:YES];
         [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
     }
 }

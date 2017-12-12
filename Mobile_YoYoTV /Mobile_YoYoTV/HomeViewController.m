@@ -17,6 +17,7 @@
 #import "PlayerViewController.h"
 #import "StorageHelper.h"
 #import "Mobile_YoYoTV-Swift.h"
+#import "LoginViewController.h"
 
 
 @interface HomeViewController () <UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,HomeCirculationScrollViewDelegate,UIScrollViewDelegate>
@@ -165,28 +166,31 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     HomeModel *model = _contentArray[indexPath.section][indexPath.row];
-    BOOL isPay = ([[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue]);
-    
-    if (!isPay && model.pay) {
-        PurchaseViewController *vc = [PurchaseViewController new];
-        vc.isHideTab = NO;
-        [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
-    } else {
-        PlayerViewController *vc = [[PlayerViewController alloc] init];
-        vc.model = model;
-        vc.isHideTabbar = NO;
-        [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
-    }
+    [self pushWithPay:model];
 }
 
 //滚动视图的代理方法
 - (void) didSecectedHomeCirculationScrollViewAnIndex:(NSInteger)currentpage{
     BOOL isPay = ([[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue]);
     HomeModel *model = _headArray[currentpage];
+    [self pushWithPay:model];
+}
+
+- (void) pushWithPay:(HomeModel *)model {
+    BOOL isPay = ([[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue]);
+    
     if (!isPay && model.pay) {
-        PurchaseViewController *vc = [PurchaseViewController new];
-        vc.isHideTab = NO;
-        [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+        NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+        BOOL isLogin = dic;
+        if (isLogin) {
+            PurchaseViewController *vc = [PurchaseViewController new];
+            vc.isHideTab = NO;
+            [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+        } else {
+            LoginViewController *vc = [LoginViewController new];
+            vc.isHide = NO;
+            [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+        }
     } else {
         PlayerViewController *vc = [[PlayerViewController alloc] init];
         vc.model = model;

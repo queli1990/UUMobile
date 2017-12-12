@@ -58,9 +58,15 @@
     [[manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         if (!error) {
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-            [self.bigArray addObjectsFromArray:dic[@"data"]];
-            _requestPage = 1;
-            [self requestNextPage:dic andCallBack:block];
+            if (self.genre_id.integerValue == 3) { //电影
+//                [self.bigArray addObject:dic];
+                [self jsonUrlArray:dic];
+                block(self);
+            } else {
+                [self.bigArray addObjectsFromArray:dic[@"data"]];
+                _requestPage = 1;
+                [self requestNextPage:dic andCallBack:block];
+            }
         } else {
             failureBlock(self);
         }

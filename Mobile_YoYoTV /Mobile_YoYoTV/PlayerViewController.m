@@ -27,6 +27,7 @@
 /** 播放器View的父视图*/
 @property (strong, nonatomic) UIView *playerFatherView;
 @property (strong, nonatomic) ZFPlayerView *playerView;
+@property (strong, nonatomic) ZFPlayerControlView *controlView;
 /** 离开页面时候是否在播放 */
 @property (nonatomic, assign) BOOL isPlaying;
 @property (nonatomic, strong) ZFPlayerModel *playerModel;
@@ -98,6 +99,7 @@
         PlayerRequest *relatedRequest = [[PlayerRequest alloc] init];
         relatedRequest.ID = self.model.ID;
         [relatedRequest requestRelatedData:nil andBlock:^(PlayerRequest *responseData) {
+            _controlView.fullScreenBtn.userInteractionEnabled = YES;
             if (responseData.responseData.count > 0) {
                 self.storageArray = responseData.responseData;
             }
@@ -120,7 +122,7 @@
                 }
             }
             isHaveInitCollectionView ? [_collectionView reloadData] : [self initCollectionView];
-            _isFromBtnClick = NO;
+//            _isFromBtnClick = NO;
             [self setNewModel];
             [SVProgressHUD dismiss];
         } andFailureBlock:^(PlayerRequest *responseData) {
@@ -143,7 +145,7 @@
         [self.playerView resetToPlayNewVideo:self.playerModel];
     }
     if (self.vimeoResponseArray) {
-        if ([_playHistory isKindOfClass:[NSDictionary class]] && !_isFromBtnClick) {
+        if ([_playHistory isKindOfClass:[NSDictionary class]]) {
             NSInteger historyIndex = [_playHistory[@"episodes"] integerValue];
             _currentIndex = historyIndex;
         }
@@ -185,22 +187,26 @@
 
 /**当点中某一集的时候的代理方法**/
 - (void)selectedButton:(UIButton *)btn {
+#pragma mark 播放记录
+    [self postPlayRecord];
+    
     NSInteger index = btn.tag - 1000;
     if (index == _currentIndex) return;
     btn.selected = YES;
     _currentIndex = index;
-    _isFromBtnClick = YES;
+//    _isFromBtnClick = YES;
     [self setNewModel];
-#pragma mark 播放记录
-    [self postPlayRecord];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     self.currentIndex = 0;
     self.ID ? [self requestModel] : [self requestData];
     [self setupPlayer];
+    
+    self.playerView.hasPreviewView = YES;
     
     StorageHelper *instance = [StorageHelper sharedSingleClass];
     self.storageArray = instance.storageArray;
@@ -285,7 +291,7 @@
 
 #pragma mark - Getter
 
-- (ZFPlayerModel *)playerModel {
+- (ZFPlayerModel *) playerModel {
     if (!_playerModel) {
         _playerModel                  = [[ZFPlayerModel alloc] init];
         _playerModel.title            = @"";
@@ -302,14 +308,16 @@
     if (!_playerView) {
         _playerView = [[ZFPlayerView alloc] init];
         
+        self.controlView = [[ZFPlayerControlView alloc] init];
+        _controlView.fullScreenBtn.userInteractionEnabled = NO;
         /*****************************************************************************************
-         *   // 指定控制层(可自定义)
-         *   // ZFPlayerControlView *controlView = [[ZFPlayerControlView alloc] init];
-         *   // 设置控制层和播放模型
-         *   // 控制层传nil，默认使用ZFPlayerControlView(如自定义可传自定义的控制层)
-         *   // 等效于 [_playerView playerModel:self.playerModel];
+         *    指定控制层(可自定义)
+         *    ZFPlayerControlView *controlView = [[ZFPlayerControlView alloc] init];
+         *    设置控制层和播放模型
+         *    控制层传nil，默认使用ZFPlayerControlView(如自定义可传自定义的控制层)
+         *    等效于 [_playerView playerModel:self.playerModel];
          ******************************************************************************************/
-        [_playerView playerControlView:nil playerModel:self.playerModel];
+        [_playerView playerControlView:_controlView playerModel:self.playerModel];
         
         // 设置代理
         _playerView.delegate = self;
@@ -321,7 +329,7 @@
 //        _playerView.hasDownload    = YES;
         
         // 打开预览图
-        self.playerView.hasPreviewView = YES;
+        _playerView.hasPreviewView = YES;
     }
     return _playerView;
 }
@@ -414,12 +422,23 @@
 //点中cell的相应事件
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     _playHistory = nil;
-    HomeModel *model = self.storageArray[indexPath.row];
+#pragma mark 播放记录
+    [self postPlayRecord];
     
+    HomeModel *model = self.storageArray[indexPath.row];
     BOOL isPay = ([[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue]);
     if (!isPay && model.pay) {
-        PurchaseViewController *vc = [PurchaseViewController new];
-        [self.navigationController pushViewController:vc animated:YES];
+        NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+        BOOL isLogin = dic;
+        if (isLogin) {
+            PurchaseViewController *vc = [PurchaseViewController new];
+            vc.isHideTab = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        } else {
+            LoginViewController *vc = [LoginViewController new];
+            vc.isHide = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
         [_playerView pause];
         return;
     }
@@ -431,8 +450,6 @@
     _vimeoResponseArray = nil;
     self.currentIndex = 0;
     [self requestData];
-#pragma mark 播放记录
-    [self postPlayRecord];
 }
 
 - (void) requestModel {

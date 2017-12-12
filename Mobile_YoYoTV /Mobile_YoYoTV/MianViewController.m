@@ -46,9 +46,15 @@
     NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
     BOOL isLogin = dic;
     if (indexPath.row == 0) {
-        PurchaseViewController *vc = [PurchaseViewController new];
-        vc.isHideTab = NO;
-        [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+        if (isLogin) {
+            PurchaseViewController *vc = [PurchaseViewController new];
+            vc.isHideTab = NO;
+            [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+        } else {
+            LoginViewController *vc = [LoginViewController new];
+            vc.isHide = NO;
+            [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+        }
     }
     if (indexPath.row == 1) {
         ConversionViewController *vc = [ConversionViewController new];
