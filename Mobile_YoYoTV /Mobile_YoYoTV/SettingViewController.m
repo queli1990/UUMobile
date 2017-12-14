@@ -11,6 +11,8 @@
 #import "SettingTableViewCell.h"
 #import "ExitView.h"
 #import "LoginViewController.h"
+#import "UserProtocolViewController.h"
+#import "AboutUsViewController.h"
 
 @interface SettingViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) NSArray *titlesArray;
@@ -60,7 +62,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingTableViewCell" forIndexPath:indexPath];
+    SettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingTableViewCell" forIndexPath:indexPath];
     cell.contentView.backgroundColor = [UIColor whiteColor];
     cell.backgroundView.backgroundColor = [UIColor whiteColor];
     if (indexPath.row == 0) {
@@ -72,8 +74,9 @@
         newLabel.textColor = UIColorFromRGB(0x4A4A4A, 1.0);
         [cell.contentView addSubview:newLabel];
         cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.arrowImg.hidden = YES;
     } else {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.arrowImg.hidden = NO;
     }
     cell.textLabel.text = _titlesArray[indexPath.row][@"title"];
     cell.backgroundColor = [UIColor clearColor];
@@ -87,6 +90,12 @@
     } else if (indexPath.row == 1) {
         NSString * url = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",@"1214672760"];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    } else if (indexPath.row == 2) {
+        UserProtocolViewController *vc = [UserProtocolViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if (indexPath.row == 3) {
+        AboutUsViewController *vc = [AboutUsViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

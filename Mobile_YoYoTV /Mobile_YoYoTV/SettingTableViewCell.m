@@ -31,6 +31,10 @@
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43, ScreenWidth, 1)];
         lineView.backgroundColor = UIColorFromRGB(0xF2F2F2, 1.0);
         [self.contentView addSubview:lineView];
+        
+        self.arrowImg = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth-15-6, (44-12)/2, 6, 12)];
+        _arrowImg.image = [UIImage imageNamed:@"ArrowRight"];
+        [self.contentView addSubview:_arrowImg];
     }
     return self;
 }

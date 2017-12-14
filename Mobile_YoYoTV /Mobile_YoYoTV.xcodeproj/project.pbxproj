@@ -84,6 +84,10 @@
 		003C0CBF1ED40DD4004C2C6A /* HotSearchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 003C0CBE1ED40DD4004C2C6A /* HotSearchRequest.m */; };
 		003C0CC21ED41411004C2C6A /* HotSearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 003C0CC11ED41411004C2C6A /* HotSearchTableViewCell.m */; };
 		003C0CC51ED56EA5004C2C6A /* GenresModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 003C0CC41ED56EA5004C2C6A /* GenresModel.m */; };
+		00729B601FE27A36007D541F /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00729B5F1FE27A36007D541F /* UserProtocolViewController.m */; };
+		00729B631FE27DC0007D541F /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00729B621FE27DC0007D541F /* AboutUsViewController.m */; };
+		00729B661FE2805E007D541F /* wechat_code.png in Resources */ = {isa = PBXBuildFile; fileRef = 00729B641FE2805E007D541F /* wechat_code.png */; };
+		00729B671FE2805E007D541F /* weiBo_code.png in Resources */ = {isa = PBXBuildFile; fileRef = 00729B651FE2805E007D541F /* weiBo_code.png */; };
 		00877FEF1F3C397A001B6021 /* PlayerCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00877FEE1F3C397A001B6021 /* PlayerCollectionReusableView.m */; };
 		008B9F821FBAE71E002DEA56 /* CAGradientLayer+OrangeLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 008B9F811FBAE71E002DEA56 /* CAGradientLayer+OrangeLayer.m */; };
 		008B9F851FBC18E0002DEA56 /* PushHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 008B9F841FBC18E0002DEA56 /* PushHelper.m */; };
@@ -294,6 +298,12 @@
 		003C0CC11ED41411004C2C6A /* HotSearchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotSearchTableViewCell.m; sourceTree = "<group>"; };
 		003C0CC31ED56EA5004C2C6A /* GenresModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenresModel.h; sourceTree = "<group>"; };
 		003C0CC41ED56EA5004C2C6A /* GenresModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenresModel.m; sourceTree = "<group>"; };
+		00729B5E1FE27A36007D541F /* UserProtocolViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserProtocolViewController.h; sourceTree = "<group>"; };
+		00729B5F1FE27A36007D541F /* UserProtocolViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserProtocolViewController.m; sourceTree = "<group>"; };
+		00729B611FE27DC0007D541F /* AboutUsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutUsViewController.h; sourceTree = "<group>"; };
+		00729B621FE27DC0007D541F /* AboutUsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
+		00729B641FE2805E007D541F /* wechat_code.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wechat_code.png; sourceTree = "<group>"; };
+		00729B651FE2805E007D541F /* weiBo_code.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weiBo_code.png; sourceTree = "<group>"; };
 		00877FED1F3C397A001B6021 /* PlayerCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerCollectionReusableView.h; sourceTree = "<group>"; };
 		00877FEE1F3C397A001B6021 /* PlayerCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerCollectionReusableView.m; sourceTree = "<group>"; };
 		008B9F801FBAE71E002DEA56 /* CAGradientLayer+OrangeLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CAGradientLayer+OrangeLayer.h"; sourceTree = "<group>"; };
@@ -488,6 +498,8 @@
 				00144DBE1FC8084200065602 /* hasLogin.png */,
 				00144DBF1FC8084200065602 /* notLogin.png */,
 				00144DBC1FC802D200065602 /* bgLogin.png */,
+				00729B641FE2805E007D541F /* wechat_code.png */,
+				00729B651FE2805E007D541F /* weiBo_code.png */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -501,6 +513,10 @@
 				00144DCE1FCC075200065602 /* ConversionViewController.m */,
 				009E433B1ED979F700DF39F0 /* SettingViewController.h */,
 				009E433C1ED979F700DF39F0 /* SettingViewController.m */,
+				00729B5E1FE27A36007D541F /* UserProtocolViewController.h */,
+				00729B5F1FE27A36007D541F /* UserProtocolViewController.m */,
+				00729B611FE27DC0007D541F /* AboutUsViewController.h */,
+				00729B621FE27DC0007D541F /* AboutUsViewController.m */,
 				00144DD71FCD755B00065602 /* CollectionViewController.h */,
 				00144DD81FCD755B00065602 /* CollectionViewController.m */,
 				00144DD01FCD3C9A00065602 /* MyCollectionRequest */,
@@ -1092,6 +1108,7 @@
 				009E42E81ED677ED00DF39F0 /* feedBack.png in Resources */,
 				001DC2651EB8663500AEC03D /* LaunchScreen.storyboard in Resources */,
 				00E80FF41ECD8BAF00D27103 /* personal_clearBtnNormal.png in Resources */,
+				00729B661FE2805E007D541F /* wechat_code.png in Resources */,
 				00144D981FC692CE00065602 /* first_selected@2x.png in Resources */,
 				00144D8D1FC692CE00065602 /* first_selected.png in Resources */,
 				00144DA81FC6931A00065602 /* third_normal@3x.png in Resources */,
@@ -1133,6 +1150,7 @@
 				00144DAA1FC6931A00065602 /* third_selected@3x.png in Resources */,
 				00144DAF1FC6C88F00065602 /* x@2x.png in Resources */,
 				00144D971FC692CE00065602 /* first_selected@3x.png in Resources */,
+				00729B671FE2805E007D541F /* weiBo_code.png in Resources */,
 				00144DBD1FC802D200065602 /* bgLogin.png in Resources */,
 				00144D901FC692CE00065602 /* first_normal@2x.png in Resources */,
 				00DC761D1EC1C9D10036566D /* ArrowRight.png in Resources */,
@@ -1321,6 +1339,7 @@
 				008B9F851FBC18E0002DEA56 /* PushHelper.m in Sources */,
 				00DC76171EC1C1EC0036566D /* HomeCollectionViewCell.m in Sources */,
 				00E1E7DE1EDA64AC00E58C7C /* FeedBackViewController.m in Sources */,
+				00729B631FE27DC0007D541F /* AboutUsViewController.m in Sources */,
 				00E80FE01ECBE89900D27103 /* UIViewController+ZJScrollPageController.m in Sources */,
 				001DC2A91EB9ACBD00AEC03D /* HomeModel.m in Sources */,
 				003C0CC21ED41411004C2C6A /* HotSearchTableViewCell.m in Sources */,
@@ -1364,6 +1383,7 @@
 				00D707901FD795B800BB9D99 /* PlayHistoryTableViewCell.m in Sources */,
 				00D707471FD0011F00BB9D99 /* MainCollectionTableViewCell.m in Sources */,
 				00E80FE51ECBE89900D27103 /* ZJSegmentStyle.m in Sources */,
+				00729B601FE27A36007D541F /* UserProtocolViewController.m in Sources */,
 				00E80FDF1ECBE89900D27103 /* UIView+ZJFrame.m in Sources */,
 				00C24A061EF7C9340049E20A /* PurchaseViewController.swift in Sources */,
 				00144D751FC5519400065602 /* ChannelsCollectionViewCell.m in Sources */,

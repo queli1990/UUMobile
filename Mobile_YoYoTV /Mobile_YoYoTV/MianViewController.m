@@ -95,7 +95,7 @@
     SettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingTableViewCell" forIndexPath:indexPath];
     cell.titleLabel.text = self.contentArray[indexPath.row][@"name"];
     cell.iconImageView.image = [UIImage imageNamed:self.contentArray[indexPath.row][@"img"]];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 
