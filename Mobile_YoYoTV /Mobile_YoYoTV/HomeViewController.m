@@ -11,7 +11,7 @@
 #import "HomeHeadCollectionReusableView.h"
 #import "HomeHead_title_CollectionReusableView.h"
 #import "HomeFootCollectionReusableView.h"
-#import "HomeCollectionViewCell.h"
+#import "HomeHorizontalCollectionViewCell.h"
 #import "ListViewController.h"
 #import "HomeRequest.h"
 #import "PlayerViewController.h"
@@ -67,17 +67,17 @@
 
 - (void) initCollectionView {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    CGFloat padding = 5;
-    CGFloat itemWidth = (ScreenWidth-4*padding)/3.0;
-    CGFloat itemHeight = itemWidth * (152.0/107.0);
+    CGFloat padding = 10;
+    CGFloat itemWidth = (ScreenWidth-3*padding)/2.0;
+    CGFloat itemHeight = itemWidth * (99.0/169.0)+22;
     layout.itemSize    = CGSizeMake(itemWidth, itemHeight); // 设置cell的宽高
-    layout.minimumLineSpacing = 5.0;
-    layout.minimumInteritemSpacing = 5.0;
-    layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
+    layout.minimumLineSpacing = 10.0;
+    layout.minimumInteritemSpacing = 10.0;
+    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
     
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight-20-44-49) collectionViewLayout:layout];
-    [_collectionView registerClass:[HomeCollectionViewCell class] forCellWithReuseIdentifier:@"HomeCollectionViewCell"];
+    [_collectionView registerClass:[HomeHorizontalCollectionViewCell class] forCellWithReuseIdentifier:@"HomeHorizontalCollectionViewCell"];
     [_collectionView registerClass:[HomeHeadCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HomeHeadCollectionReusableView"];
     [_collectionView registerClass:[HomeHead_title_CollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HomeHead_title_CollectionReusableView"];
     [_collectionView registerClass:[HomeFootCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"HomeFootCollectionReusableView"];
@@ -105,9 +105,8 @@
 //每个cell是什么
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     HomeModel *model = _contentArray[indexPath.section][indexPath.row];
-    HomeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HomeCollectionViewCell" forIndexPath:indexPath];
+    HomeHorizontalCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HomeHorizontalCollectionViewCell" forIndexPath:indexPath];
     cell.model = model;
-    
     return cell;
 }
 
@@ -122,7 +121,7 @@
             UIFont *font = [UIFont fontWithName:@"Arial" size:18.0];
             headView.titleLabel.font = font;
             CGSize labelSize = [headView.titleLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
-            headView.titleLabel.frame = CGRectMake(10, 5+5, labelSize.width, 20);
+            headView.titleLabel.frame = CGRectMake(10, 5+10, labelSize.width, 20);
             headView.moreLabel.frame = CGRectMake(ScreenWidth-15-8-5-40, 5+5, 40, 20);
             headView.categoryBtn.tag = indexPath.section;
             [headView.categoryBtn addTarget:self action:@selector(pushCategoryVC:) forControlEvents:UIControlEventTouchUpInside];
@@ -133,8 +132,8 @@
         UIFont *font = [UIFont fontWithName:@"Arial" size:18.0];
         headView.titleLabel.font = font;
         CGSize labelSize = [headView.titleLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
-        headView.titleLabel.frame = CGRectMake(10, 5+5, labelSize.width, 20);
-        headView.moreLabel.frame = CGRectMake(ScreenWidth-15-8-5-40, 5+5, 40, 20);
+        headView.titleLabel.frame = CGRectMake(10, 10+10, labelSize.width, 20);
+        headView.moreLabel.frame = CGRectMake(ScreenWidth-15-8-5-40, 10+10, 40, 20);
         headView.categoryBtn.tag = indexPath.section;
         [headView.categoryBtn addTarget:self action:@selector(pushCategoryVC:) forControlEvents:UIControlEventTouchUpInside];
         return headView;
@@ -159,7 +158,7 @@
     if (section == 0) {
         return CGSizeMake(0, ScreenWidth*210/375+30+5);
     } else {
-        return CGSizeMake(0, 35);
+        return CGSizeMake(0, 40);
     }
 }
 
@@ -171,7 +170,6 @@
 
 //滚动视图的代理方法
 - (void) didSecectedHomeCirculationScrollViewAnIndex:(NSInteger)currentpage{
-    BOOL isPay = ([[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue]);
     HomeModel *model = _headArray[currentpage];
     [self pushWithPay:model];
 }

@@ -64,7 +64,7 @@
     } else {
         _videoInfoView.actorLabel.text = [NSString stringWithFormat:@"演员："];
     }
-    self.videoInfoView.descriptionLabel.text = self.model.Description;
+    self.videoInfoView.descriptionLabel.text = [NSString stringWithFormat:@"简介：%@",self.model.Description];
     _videoInfoView.delegate = self;
     
     self.headerInfoHeight = _videoInfoView.totalHeight;

@@ -9,7 +9,7 @@
 #import "ListViewController.h"
 #import "ListRequest.h"
 #import "NavView.h"
-#import "HomeCollectionViewCell.h"
+#import "HomeHorizontalCollectionViewCell.h"
 #import "PlayerViewController.h"
 #import "Mobile_YoYoTV-Swift.h"
 #import "LoginViewController.h"
@@ -67,17 +67,17 @@
 
 - (void) initCollectionView {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    CGFloat padding = 5;
-    CGFloat itemWidth = (ScreenWidth-4*padding)/3.0;
-    CGFloat itemHeight = itemWidth * (152.0/107.0);
+    CGFloat padding = 10;
+    CGFloat itemWidth = (ScreenWidth-3*padding)/2.0;
+    CGFloat itemHeight = itemWidth * (99.0/169.0)+22;
     layout.itemSize    = CGSizeMake(itemWidth, itemHeight); // 设置cell的宽高
-    layout.minimumLineSpacing = 5.0;
-    layout.minimumInteritemSpacing = 5.0;
-    layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
+    layout.minimumLineSpacing = 10.0;
+    layout.minimumInteritemSpacing = 10.0;
+    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
     
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight-64) collectionViewLayout:layout];
-    [_collectionView registerClass:[HomeCollectionViewCell class] forCellWithReuseIdentifier:@"HomeCollectionViewCell"];
+    [_collectionView registerClass:[HomeHorizontalCollectionViewCell class] forCellWithReuseIdentifier:@"HomeHorizontalCollectionViewCell"];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     _collectionView.backgroundColor = [UIColor whiteColor];
@@ -125,7 +125,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    HomeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HomeCollectionViewCell" forIndexPath:indexPath];
+    HomeHorizontalCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HomeHorizontalCollectionViewCell" forIndexPath:indexPath];
     cell.model = self.contentArray[indexPath.row];
     return cell;
 }

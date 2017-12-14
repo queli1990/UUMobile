@@ -216,7 +216,7 @@
     self.playerFatherView = [[UIView alloc] init];
     [self.view addSubview:self.playerFatherView];
     [self.playerFatherView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(20);
+        make.top.mas_equalTo(0);
         make.leading.trailing.mas_equalTo(0);
         // 这里宽高比16：9,可自定义宽高比
         make.height.mas_equalTo(self.playerFatherView.mas_width).multipliedBy(9.0f/16.0f);
@@ -235,7 +235,7 @@
     // if (ZFPlayerShared.isLandscape) {
     //    return UIStatusBarStyleDefault;
     // }
-    return UIStatusBarStyleLightContent;
+    return UIStatusBarStyleDefault;
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -361,7 +361,7 @@
     layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
     
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 20+ScreenWidth*9/16 + 10, ScreenWidth, ScreenHeight-20-ScreenWidth*9/16 - 10) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, ScreenWidth*9/16 + 10, ScreenWidth, ScreenHeight-ScreenWidth*9/16 - 10) collectionViewLayout:layout];
     [_collectionView registerClass:[HomeCollectionViewCell class] forCellWithReuseIdentifier:@"HomeCollectionViewCell"];
     [_collectionView registerClass:[PlayerCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"PlayerCollectionReusableView"];
     [_collectionView registerClass:[HomeFootCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"HomeFootCollectionReusableView"];

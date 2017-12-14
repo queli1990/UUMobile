@@ -28,7 +28,8 @@
     self.collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _collectionBtn.frame = CGRectMake(ScreenWidth-15-20, gap1, 20, 20);
     [_collectionBtn setImage:[UIImage imageNamed:@"userCollection"] forState:UIControlStateNormal];
-    [_collectionBtn setImage:[UIImage imageNamed:@"collection"] forState:UIControlStateSelected];
+    [_collectionBtn setImage:[UIImage imageNamed:@"collection"] forState:UIControlStateHighlighted];
+    [_collectionBtn setImage:[UIImage imageNamed:@"collected"] forState:UIControlStateSelected];
     
     [_view1 addSubview:_videoNameLabel];
     [_view1 addSubview:_collectionBtn];
@@ -44,11 +45,11 @@
         CGFloat gap2 = 14;
         self.view2 = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_view1.frame), ScreenWidth, gap2+22+8+66)];
         UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(15, gap2, 80, 22)];
-        label1 = [self dealLabel:label1 Font:[UIFont systemFontOfSize:13] color:UIColorFromRGB(0x4A4A4A, 1.0) textAlignment:NSTextAlignmentLeft];
+        label1 = [self dealLabel:label1 Font:[UIFont systemFontOfSize:13] color:UIColorFromRGB(0x666666, 1.0) textAlignment:NSTextAlignmentLeft];
         label1.text = @"选集";
         
         self.totalEpisodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth-15-180, label1.frame.origin.y, 180, 22)];
-        _totalEpisodeLabel = [self dealLabel:_totalEpisodeLabel Font:[UIFont systemFontOfSize:13] color:UIColorFromRGB(0x000000, 1.0) textAlignment:NSTextAlignmentRight];
+        _totalEpisodeLabel = [self dealLabel:_totalEpisodeLabel Font:[UIFont systemFontOfSize:13] color:[UIColor grayColor] textAlignment:NSTextAlignmentRight];
         
         self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_totalEpisodeLabel.frame)+8, ScreenWidth, 66)];
         _scrollView.showsHorizontalScrollIndicator = NO;
@@ -83,7 +84,7 @@
         CGFloat gap2 = 14;
         self.view2 = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_view1.frame), ScreenWidth, gap2+22+8+40)];
         UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(15, gap2, 80, 22)];
-        label1 = [self dealLabel:label1 Font:[UIFont systemFontOfSize:13] color:UIColorFromRGB(0x4A4A4A, 1.0) textAlignment:NSTextAlignmentLeft];
+        label1 = [self dealLabel:label1 Font:[UIFont systemFontOfSize:13] color:UIColorFromRGB(0x666666, 1.0) textAlignment:NSTextAlignmentLeft];
         label1.text = @"选集";
         
         self.totalEpisodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth-15-180, label1.frame.origin.y, 180, 22)];
@@ -126,28 +127,45 @@
     CGFloat gap3 = 10;
     self.view3 = [[UIView alloc] initWithFrame:CGRectMake(0, gap3+height, ScreenWidth, 112)];
     
-    self.directorLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, gap3, ScreenWidth-30, 22)];
+    self.directorLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, gap3, ScreenWidth-30, 23)];
     //self.directorLabel.text = @"导演：我是导演。。。。。";
-    _directorLabel = [self dealLabel:_directorLabel Font:[UIFont systemFontOfSize:13] color:UIColorFromRGB(0x000000, 1.0) textAlignment:NSTextAlignmentLeft];
+    _directorLabel = [self dealLabel:_directorLabel Font:[UIFont systemFontOfSize:13] color:[UIColor grayColor] textAlignment:NSTextAlignmentLeft];
     
-    self.actorLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(_directorLabel.frame), ScreenWidth-30, 22)];
+    self.actorLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(_directorLabel.frame), ScreenWidth-30, 23)];
     //_actorLabel.text = @"我是演员";
-    _actorLabel = [self dealLabel:_actorLabel Font:[UIFont systemFontOfSize:13] color:UIColorFromRGB(0x000000, 1.0) textAlignment:NSTextAlignmentLeft];
+    _actorLabel = [self dealLabel:_actorLabel Font:[UIFont systemFontOfSize:13] color:[UIColor grayColor] textAlignment:NSTextAlignmentLeft];
     
     self.descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(_actorLabel.frame), ScreenWidth-30, 112-CGRectGetMaxY(_actorLabel.frame))];
     _descriptionLabel.numberOfLines = 0;
-    _descriptionLabel = [self dealLabel:_descriptionLabel Font:[UIFont systemFontOfSize:13] color:UIColorFromRGB(0x000000, 1.0) textAlignment:NSTextAlignmentLeft];
+    _descriptionLabel = [self dealLabel:_descriptionLabel Font:[UIFont systemFontOfSize:13] color:[UIColor grayColor] textAlignment:NSTextAlignmentJustified];
     
     
     [_view3 addSubview:_directorLabel];
     [_view3 addSubview:_actorLabel];
     [_view3 addSubview:_descriptionLabel];
     
+    _totalHeight += _view3.frame.size.height;
+    [self addHeadView];
+}
+
+- (void) addHeadView {
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_view3.frame), ScreenWidth, 60)];
+    UIView *grayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 8)];
+    grayView.backgroundColor = UIColorFromRGB(0xF2F2F2, 1.0);
+    
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(15, 8+20, ScreenWidth, 22)];
+    label1.text = @"更多影片推荐";
+    label1.textColor = UIColorFromRGB(0x666666, 1.0);
+    [headView addSubview:grayView];
+    [headView addSubview:label1];
+    
+    
     [self addSubview:_view1];
     [self addSubview:_view2];
     [self addSubview:_view3];
+    [self addSubview:headView];
     
-    _totalHeight += _view3.frame.size.height;
+    _totalHeight += headView.frame.size.height;
 }
 
 - (void) selectedClick:(UIButton *)btn {

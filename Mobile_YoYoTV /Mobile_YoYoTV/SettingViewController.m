@@ -42,7 +42,7 @@
 - (void) setupHeader {
     CGFloat height = ScreenWidth * 9/16;
     self.heaerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, height)];
-    UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake((ScreenWidth-79)/2, (height-84)/2, 79, 84)];
+    UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake((ScreenWidth-178*0.6)/2, (height-172*0.6)/2, 178*0.6, 172*0.6)];
     img.image = [UIImage imageNamed:@"settingHeaderImg"];
     [_heaerView addSubview:img];
 }
@@ -55,11 +55,14 @@
     [_tableView registerClass:[SettingTableViewCell class] forCellReuseIdentifier:@"SettingTableViewCell"];
     _tableView.tableHeaderView = _heaerView;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.backgroundColor = [UIColor colorWithRed:248.0/255.0 green:248.0/255.0 blue:248.0/255.0 alpha:1.0];
     [self.view addSubview:_tableView];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingTableViewCell" forIndexPath:indexPath];
+    cell.contentView.backgroundColor = [UIColor whiteColor];
+    cell.backgroundView.backgroundColor = [UIColor whiteColor];
     if (indexPath.row == 0) {
         UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth-60-15, (44-20)/2, 60, 20)];
         newLabel.text = @"2.0版本";
@@ -126,7 +129,9 @@
     if (_titlesArray == nil) {
         NSDictionary *dic1 = @{@"title":@"当前版本"};
         NSDictionary *dic2 = @{@"title":@"我来打分"};
-        _titlesArray = @[dic1,dic2];
+        NSDictionary *dic3 = @{@"title":@"用户协议"};
+        NSDictionary *dic4 = @{@"title":@"关于我们"};
+        _titlesArray = @[dic1,dic2,dic3,dic4];
     }
     return _titlesArray;
 }
