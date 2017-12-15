@@ -28,8 +28,8 @@
         self.backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _backBtn.frame = CGRectMake(15, 20+(44-44)/2, 50, 44);
         [_backBtn setImage:[UIImage imageNamed:@"ArrowLeft"] forState:UIControlStateNormal];
-        CGFloat width = 22*0.5;
-        CGFloat height = 36*0.5;
+        CGFloat width = 22*0.8;
+        CGFloat height = 36*0.8;
         _backBtn.imageEdgeInsets = UIEdgeInsetsMake((44-height)/2, 0, (44-height)/2, 50-width);
         [self addSubview:_backBtn];
         

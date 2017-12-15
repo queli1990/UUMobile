@@ -16,7 +16,7 @@
         
         self.backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _backBtn.frame = CGRectMake(15, 20+(44-20)/2, 20, 20);
-        [_backBtn setImage:[UIImage imageNamed:@"login_back"] forState:UIControlStateNormal];
+        [_backBtn setImage:[UIImage imageNamed:@"login_back.png"] forState:UIControlStateNormal];
         [self addSubview:_backBtn];
         
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((ScreenWidth-200)/2, 20+(44-20)/2, 200, 20)];

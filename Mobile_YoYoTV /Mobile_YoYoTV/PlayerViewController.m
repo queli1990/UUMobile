@@ -361,7 +361,7 @@
     layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
     
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, ScreenWidth*9/16 + 10, ScreenWidth, ScreenHeight-ScreenWidth*9/16 - 10) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, ScreenWidth*9/16, ScreenWidth, ScreenHeight-ScreenWidth*9/16 - 10) collectionViewLayout:layout];
     [_collectionView registerClass:[HomeCollectionViewCell class] forCellWithReuseIdentifier:@"HomeCollectionViewCell"];
     [_collectionView registerClass:[PlayerCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"PlayerCollectionReusableView"];
     [_collectionView registerClass:[HomeFootCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"HomeFootCollectionReusableView"];

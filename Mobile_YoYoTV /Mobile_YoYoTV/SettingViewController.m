@@ -66,8 +66,8 @@
     cell.contentView.backgroundColor = [UIColor whiteColor];
     cell.backgroundView.backgroundColor = [UIColor whiteColor];
     if (indexPath.row == 0) {
-        UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth-60-15, (44-20)/2, 60, 20)];
-        newLabel.text = @"2.0版本";
+        UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth-60-15, (50-20)/2, 60, 20)];
+        newLabel.text = @"V2.0";
 //        newLabel.backgroundColor = UIColorFromRGB(0x7ED321, 1.0);
         newLabel.font = [UIFont systemFontOfSize:13];
         newLabel.textAlignment = NSTextAlignmentRight;
@@ -100,7 +100,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44;
+    return 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

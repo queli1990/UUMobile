@@ -65,18 +65,15 @@
     _moreLabel.textAlignment = NSTextAlignmentRight;
     _moreLabel.font = [UIFont systemFontOfSize:14];
     _moreLabel.textColor = [UIColor grayColor];
-//    _moreLabel.text = @"更多";
     
+    self.categoryBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    _categoryBtn.frame = CGRectMake(0, viewHeight, ScreenWidth, 30);
+
+    [_categoryBtn addSubview:_titleLabel];
+    [_categoryBtn addSubview:_arrowImageView];
+    [_categoryBtn addSubview:_moreLabel];
     
-        self.categoryBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        _categoryBtn.frame = CGRectMake(0, viewHeight, ScreenWidth, 30);
-        
-        [_categoryBtn addSubview:_titleLabel];
-        [_categoryBtn addSubview:_arrowImageView];
-        [_categoryBtn addSubview:_moreLabel];
-        
-        [self addSubview:_categoryBtn];
-//    });
+    [self addSubview:_categoryBtn];
 }
 
 - (void)infiniteScrollView:(BHInfiniteScrollView *)infiniteScrollView didScrollToIndex:(NSInteger)index {

@@ -155,8 +155,8 @@ class PurchaseViewController: UIViewController {
         
         
         let label = UILabel(frame: CGRect(x: 15, y: 0, width: screenWidth-30, height: 0));
-//        label.text = "    此订阅自动续费，每月都会自动收费，除非您在当期结束前24小时取消。订阅期长1月，每月收费1.85美元。iTunes 账户续费是在当期结束前24小时内扣费1.85美元。可在iTunes设置中取消此订阅。\n    隐私政策:http://100uu.tv:8099/AppleTV-Versions/policy.html\n    服务协议:http://100uu.tv:8099/AppleTV-Versions/term.html";
-        label.text = "此订阅自动续费，每月都会自动收费，除非您在当期结束前24小时取消。订阅期长1月，每月收费1.00人民币。iTunes 账户续费是在当期结束前24小时内扣费1.00人民币。可在iTunes设置中取消此订阅。\n    隐私政策:http://100uu.tv:8099/AppleTV-Versions/policy.html\n    服务协议:http://100uu.tv:8099/AppleTV-Versions/term.html";
+        label.text = "    此订阅自动续费，每月都会自动收费，除非您在当期结束前24小时取消。订阅期长1月，每月收费1.85美元。iTunes 账户续费是在当期结束前24小时内扣费1.85美元。可在iTunes设置中取消此订阅。\n    隐私政策:http://100uu.tv:8099/AppleTV-Versions/policy.html\n    服务协议:http://100uu.tv:8099/AppleTV-Versions/term.html";
+//        label.text = "此订阅自动续费，每月都会自动收费，除非您在当期结束前24小时取消。订阅期长1月，每月收费1.00人民币。iTunes 账户续费是在当期结束前24小时内扣费1.00人民币。可在iTunes设置中取消此订阅。\n    隐私政策:http://100uu.tv:8099/AppleTV-Versions/policy.html\n    服务协议:http://100uu.tv:8099/AppleTV-Versions/term.html";
         label.textColor = UIColor.white;
         label.textAlignment = .left
         let font = UIFont(name: btnTextFont, size: 16)
@@ -208,7 +208,7 @@ class PurchaseViewController: UIViewController {
             let priceLabel:UILabel = UILabel(frame: CGRect(x: 15, y: policyBtn.frame.maxY + 30, width: screenWidth-30, height: 30))
             priceLabel.font = UIFont(name: btnTextFont, size: 28)
             priceLabel.textColor = UIColor(red: 250/255.0, green: 229/255.0, blue: 0/255.0, alpha: 1)
-            priceLabel.text = "CNY 1.00 / 月"
+            priceLabel.text = "USD 1.85 / 月"
             priceLabel.textAlignment = .center
             self.view.addSubview(priceLabel)
             

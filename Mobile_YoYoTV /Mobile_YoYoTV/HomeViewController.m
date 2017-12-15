@@ -118,7 +118,7 @@
             [headView detailArray:self.headArray];
             headView.delegate = self;
             headView.titleLabel.text = _titleArray[indexPath.section][@"name"];
-            UIFont *font = [UIFont fontWithName:@"Arial" size:18.0];
+            UIFont *font = [UIFont fontWithName:@"Arial" size:15.0];
             headView.titleLabel.font = font;
             CGSize labelSize = [headView.titleLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
             headView.titleLabel.frame = CGRectMake(10, 5+10, labelSize.width, 20);
@@ -129,7 +129,7 @@
         }
         HomeHead_title_CollectionReusableView *headView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HomeHead_title_CollectionReusableView" forIndexPath:indexPath];
         headView.titleLabel.text = _titleArray[indexPath.section][@"name"];
-        UIFont *font = [UIFont fontWithName:@"Arial" size:18.0];
+        UIFont *font = [UIFont fontWithName:@"Arial" size:15.0];
         headView.titleLabel.font = font;
         CGSize labelSize = [headView.titleLabel.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil]];
         headView.titleLabel.frame = CGRectMake(10, 10+10, labelSize.width, 20);

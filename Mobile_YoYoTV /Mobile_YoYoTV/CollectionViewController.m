@@ -86,6 +86,7 @@
         [self.albumIdArray addObject:model.ID];
         NSLog(@"%lu",(unsigned long)_deleteArray.count);
     } else {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         PlayerViewController *VC = [PlayerViewController new];
         VC.isHideTabbar = YES;
         VC.ID = model.albumId;

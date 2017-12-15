@@ -19,6 +19,7 @@
 @property (nonatomic,strong) UITextField *nickNameTextField;
 @property (nonatomic,strong) UITextField *passWordTextField;
 @property (nonatomic,strong) NSMutableArray *collections;
+@property (nonatomic,strong) UIButton *loginBtn;
 @end
 
 @implementation LoginViewController
@@ -53,7 +54,7 @@
     [inputView1 addSubview:lineView1];
     
     UIImageView *headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, (40-20)/2, 20, 20)];
-    headImageView.image = [UIImage imageNamed:@"login_personal"];
+    headImageView.image = [UIImage imageNamed:@"login_personal_selected"];
     [inputView1 addSubview:headImageView];
     
     self.nickNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(CGRectGetMaxX(headImageView.frame)+15, 5, ScreenWidth-60-headImageView.frame.size.width-30-10-5-20, 30)];
@@ -61,16 +62,16 @@
     _nickNameTextField.backgroundColor = [UIColor clearColor];
     //设置placeholder的颜色
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    dict[NSForegroundColorAttributeName] = UIColorFromRGB(0x4A4A4A, 1.0);
+    dict[NSForegroundColorAttributeName] = UIColorFromRGB(0x9B9B9B, 1.0);
     NSAttributedString *attribute = [[NSAttributedString alloc] initWithString:_nickNameTextField.placeholder attributes:dict];
     [_nickNameTextField setAttributedPlaceholder:attribute];
     _nickNameTextField.textColor = [UIColor blackColor];
     _nickNameTextField.font = [UIFont systemFontOfSize:16.0];
-    _nickNameTextField.clearButtonMode = UITextFieldViewModeAlways;
-    
+//    _nickNameTextField.clearButtonMode = UITextFieldViewModeAlways;
     
     //    _nickNameTextField.borderStyle = UITextBorderStyleRoundedRect;
     _nickNameTextField.delegate = self;
+    [_nickNameTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [inputView1 addSubview:_nickNameTextField];
     
     UIButton *clearBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -95,7 +96,7 @@
     [inputView2 addSubview:lineView2];
     
     UIImageView *passwordImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, (40-20)/2, 20, 20)];
-    passwordImageView.image = [UIImage imageNamed:@"personal_lock"];
+    passwordImageView.image = [UIImage imageNamed:@"personal_lock_selected"];
     [inputView2 addSubview:passwordImageView];
     
     self.passWordTextField = [[UITextField alloc] initWithFrame:CGRectMake(CGRectGetMaxX(passwordImageView.frame)+15, 5, _nickNameTextField.frame.size.width, 30)];
@@ -104,38 +105,29 @@
     _passWordTextField.secureTextEntry = YES;
     //设置placeholder的颜色
     NSMutableDictionary *dict2 = [NSMutableDictionary dictionary];
-    dict2[NSForegroundColorAttributeName] = UIColorFromRGB(0x4A4A4A, 1.0);
+    dict2[NSForegroundColorAttributeName] = UIColorFromRGB(0x9B9B9B, 1.0);
     NSAttributedString *attribute2 = [[NSAttributedString alloc] initWithString:_passWordTextField.placeholder attributes:dict2];
     [_passWordTextField setAttributedPlaceholder:attribute2];
     _passWordTextField.font = [UIFont systemFontOfSize:16.0];
     //    _passWordTextField.borderStyle = UITextBorderStyleRoundedRect;
     _passWordTextField.delegate = self;
+    [_passWordTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [inputView2 addSubview:_passWordTextField];
     
     [self.view addSubview:inputView2];
     
-    UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    CGFloat scal = (ScreenWidth-20-20)/630;
-    loginBtn.frame = CGRectMake(20, CGRectGetMaxY(inputView2.frame)+40, ScreenWidth-20-20, 104*scal);
-    [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-    loginBtn.backgroundColor = [UIColor orangeColor];
-    [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [loginBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [loginBtn addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:loginBtn];
-    
-    
-    UIButton *registBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    registBtn.frame = CGRectMake(20, CGRectGetMaxY(loginBtn.frame)+20, ScreenWidth-20-20, 40);
-    [registBtn setTitle:@"注册" forState:UIControlStateNormal];
-    [registBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [registBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [registBtn addTarget:self action:@selector(regist:) forControlEvents:UIControlEventTouchUpInside];
-    [registBtn setBackgroundImage:[UIImage imageNamed:@"personalBgNormal"] forState:UIControlStateNormal];
-    [registBtn setBackgroundImage:[UIImage imageNamed:@"personalBgHeighted"] forState:UIControlStateHighlighted];
-    
-    //    [self.view addSubview:registBtn];
-    
+    self.loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    CGFloat width = ScreenWidth-35*2;
+    CGFloat height = width*46/304;
+    _loginBtn.frame = CGRectMake(35, CGRectGetMaxY(inputView2.frame)+30, width, height);
+    _loginBtn.layer.cornerRadius = 3;
+    [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+    [_loginBtn setBackgroundImage:[self imageWithColor:UIColorFromRGB(0xE6E6E6, 1.0)] forState:UIControlStateNormal];
+    [_loginBtn setBackgroundImage:[self imageWithColor:UIColorFromRGB(0xED7000, 1.0)] forState:UIControlStateHighlighted];
+
+    [_loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_loginBtn addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_loginBtn];
 }
 
 - (void) clearInput:(UIButton *)btn{
@@ -215,23 +207,20 @@
     
 }
 
+-(void)textFieldDidChange :(UITextField *)theTextField{
+    if (_nickNameTextField.text.length > 0 && _passWordTextField.text.length >0) {
+        [_loginBtn setBackgroundImage:[UIImage imageNamed:@"gradient"] forState:UIControlStateNormal];
+    } else {
+        [_loginBtn setBackgroundImage:[self imageWithColor:UIColorFromRGB(0xE6E6E6, 1.0)] forState:UIControlStateNormal];
+    }
+}
+
 - (void) textFieldDidBeginEditing:(UITextField *)textField{
-    //    [UIView animateWithDuration:0.2 animations:^{
-    //        if (ScreenWidth == 320) {
-    //            _fullView.frame = CGRectMake(0, (ScreenHeight-64-120-40-80-80)/2-253-10, ScreenWidth, ScreenHeight-64);
-    //        }else if (ScreenWidth == 375){
-    //            _fullView.frame = CGRectMake(0, (ScreenHeight-64-120-40-80-80)/2-200-10, ScreenWidth, ScreenHeight-64);
-    //        }else{
-    //            _fullView.frame = CGRectMake(0, (ScreenHeight-64-120-40-80-80)/2-271-10, ScreenWidth, ScreenHeight-64);
-    //        }
-    //    }];
+    
 }
 
 
 - (void) setNav{
-    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
-    bgImageView.image = [[UIImage imageNamed:@"HomeBackground"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    //[self.view addSubview:bgImageView];
     self.navView = [[LoginNav alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 64)];
     _navView.backgroundColor = [UIColor clearColor];
     [_navView addRightBtn];
@@ -286,11 +275,19 @@
     return _collections;
 }
 
-
-
-
-
-
+//封装类方法掉用：
+//  颜色转换为背景图片
+//  颜色转换为背景图片
+- (UIImage *)imageWithColor:(UIColor *)color {
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
 
 
 

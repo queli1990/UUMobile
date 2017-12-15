@@ -21,7 +21,7 @@
         _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.textColor = UIColorFromRGB(0x808080, 1.0);
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.font = [UIFont systemFontOfSize:12.0];
+        _titleLabel.font = [UIFont systemFontOfSize:13.0];
         
         [self.contentView addSubview:_sumImageView];
         [self.contentView addSubview:_titleLabel];

@@ -69,8 +69,8 @@ extension PolicyViewController {
         let backBtn = UIButton(type: .custom)
         backBtn.frame = CGRect(x: 15, y: 20+(44-44)/2, width: 50, height: 44)
         backBtn.setImage(#imageLiteral(resourceName: "ArrowLeft.png"), for: .normal)
-        let width = 22*0.5
-        let height = 36*0.5
+        let width = 22*0.8
+        let height = 36*0.8
         backBtn.imageEdgeInsets = UIEdgeInsetsMake(CGFloat((44-height)/2), 0, CGFloat((44-height)/2), CGFloat(50-width))
         backBtn.addTarget(self, action: #selector(backBtnClicked(sender:)), for: .touchUpInside)
         

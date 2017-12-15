@@ -29,6 +29,17 @@
     label.numberOfLines = 0;
     label.textAlignment = NSTextAlignmentLeft;
     label.text = @"        优优TV是UU团队推出的智能互联网多平台视频播放应用，现已经覆盖Apple TV/Android TV/Roku/Android移动端/iOS移动端/WEB端等平台，并包含海量高清正版影视资源，致力于提供最畅爽的电视观看体验。";
+    
+    NSMutableAttributedString *attributedString =  [[NSMutableAttributedString alloc] initWithString:label.text attributes:@{NSKernAttributeName : @(1.5f)}];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:4];
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, label.text.length)];
+    [label setAttributedText:attributedString];
+    
+    label.numberOfLines = 0;
+    [label sizeToFit];
+    
+    
     [self.view addSubview:label];
     
     UIImageView *imgView1 = [[UIImageView alloc] initWithFrame:CGRectMake((ScreenWidth-136)/2, CGRectGetMaxY(label.frame)+30, 136, 136)];
