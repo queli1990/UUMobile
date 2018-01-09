@@ -13,6 +13,7 @@
 #define doSaveHistory @"/doSaveHistory.do"
 #define doCancelCollection @"/doCancelCollection.do"
 #define doSaveCollection @"/doSaveCollection.do"
+#define doVideoStatistics @"/doVideoStatistics.do"
 
 
 @interface PlayerUserRequest()
@@ -54,7 +55,9 @@
     [self getUserRequest:params andTransactionSuffix:doSaveHistory andBlock:^(UserBaseRequest *responseData) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData._data options:NSJSONReadingMutableContainers error:nil];
         NSString *status = dic[@"status"];
-        NSLog(@"播放历史%@",status);
+        if ([status isEqualToString:@"2"]) {
+            NSLog(@"上传播放历史成功");
+        }
     } andFailure:^(UserBaseRequest *responseData) {
         NSLog(@"上传播放历史失败");
     }];
@@ -144,6 +147,47 @@
         failureBlock(self);
     }];
     return self;
+}
+
+- (void) postPlayTimeWithVersion:(NSString *)version albumId:(NSString *)albumId albumTitle:(NSString *)albumTitle watchTime:(int)watchLength isCollection:(NSString*)isCollection startTime:(NSString *)startTime endTime:(NSString *)endTime {
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+    NSString *token1 = userInfo ? userInfo[@"token"] : @"";
+    NSString *deviceId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSString *platform = @"mobile-ios";
+    NSString *IP = [[NSUserDefaults standardUserDefaults] objectForKey:@"IP"];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:token1 forKey:@"token"];
+    [params setObject:deviceId forKey:@"deviceId"];
+    [params setObject:version forKey:@"version"];
+    [params setObject:platform forKey:@"platform"];
+    [params setObject:IP forKey:@"ip"];
+    [params setObject:albumId forKey:@"albumId"];
+    [params setObject:albumTitle forKey:@"albumTitle"];
+    [params setObject:[NSString stringWithFormat:@"%i",watchLength] forKey:@"watchLength"];
+    [params setObject:isCollection forKey:@"isCollection"];
+    [params setObject:startTime forKey:@"startTime"];
+    [params setObject:endTime forKey:@"endTime"];
+    
+    [self postUserRequest:params andTransactionSuffix:doVideoStatistics andBlock:^(UserBaseRequest *responseData) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData._data options:NSJSONReadingMutableContainers error:nil];
+        if ([dic[@"status"] isEqualToString:@"3"]) {
+//            NSLog(@"时长统计上传成功");
+        }
+    } andFailure:^(UserBaseRequest *responseData) {
+        NSLog(@"时长统计上传失败");
+    }];
+    
+    //token：用户token
+    //deviceId：设备ID
+    //version:版本号
+    //platform：平台（mobile-ios，apple-tv | roku）
+    //ip：客户端IP
+    //albumId 视频ID
+    //albumTitle 视频名称
+    //watchLength 播放时长(单位毫秒)
+    //isCollection 是否收藏
+    //startTime 播放开始时间
+    //endTime 播放结束时间
 }
 
 //设置默认值

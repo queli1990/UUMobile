@@ -30,5 +30,6 @@ typedef void (^userResponseBlock)(PlayerUserRequest *responseData);
 /**收藏**/
 - (id) collectionWithID:(NSNumber *)ID title:(NSString *)title image:(NSString *)img pay:(BOOL)isPay andBlock:(userResponseBlock)block andFilureBlock:(userResponseBlock)failureBlock;
 
-
+/**上传播放时长**/
+- (void) postPlayTimeWithVersion:(NSString *)version albumId:(NSString *)albumId albumTitle:(NSString *)albumTitle watchTime:(int)watchTime isCollection:(NSString*)isCollection startTime:(NSString *)startTime endTime:(NSString *)endTime;
 @end

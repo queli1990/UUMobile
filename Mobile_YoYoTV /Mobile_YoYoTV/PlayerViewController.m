@@ -47,6 +47,7 @@
 /*用来做中间变量，给collectionView的headerView中影片信息部分传值*/
 @property (nonatomic,strong) PlayerRequest *VimeoRequest;
 @property (nonatomic) CGFloat sectionOneHeight;
+@property (nonatomic,copy) NSString *beginTime;
 @end
 
 @implementation PlayerViewController
@@ -210,6 +211,16 @@
     
     StorageHelper *instance = [StorageHelper sharedSingleClass];
     self.storageArray = instance.storageArray;
+    self.beginTime = [self getCurrentTime];
+}
+
+- (NSString *) getCurrentTime{
+    //获取当前时间
+    NSDate *now = [NSDate date];
+    //创建日期格式
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
+    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"]; //设定时间的格式
+    return [dateFormatter stringFromDate:now];
 }
 
 - (void) setupPlayer {
@@ -254,7 +265,21 @@
     [self postPlayRecord];
 }
 //上传播放记录
+//postActive(userIP,albumID,name,playedTime,beginTime,endTime);
+- (void) postUserData {
+    NSString *version = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
+    NSString *albumId = [NSString stringWithFormat:@"%@",self.model.ID];
+    int watchTime = (int)self.playerView.player.currentTime.value/self.playerView.player.currentTime.timescale*1000;
+    NSString *isCollection = [NSString stringWithFormat:@"%i",self.isCollected];
+    NSString *endTime = [self getCurrentTime];
+    
+    [[PlayerUserRequest new] postPlayTimeWithVersion:version albumId:albumId albumTitle:self.model.name watchTime:watchTime isCollection:isCollection startTime:self.beginTime endTime:endTime];
+    self.beginTime = [self getCurrentTime]; //清空上一次的开始时间
+}
+
 - (void) postPlayRecord {
+    [self postUserData];
+    
     if (self.playerView.player.currentItem == nil) return;
     NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
     BOOL isLogin = userInfo;
@@ -262,6 +287,8 @@
         return;
     }
     NSLog(@"%lld",self.playerView.player.currentTime.value/self.playerView.player.currentTime.timescale);
+//    NSLog(@"currentTime.value---%lld",self.playerView.player.currentTime.value);
+//    NSLog(@"currentTime.timescale---%d",self.playerView.player.currentTime.timescale);
     CGFloat watchTime = self.playerView.player.currentTime.value/self.playerView.player.currentTime.timescale;
 
     [[PlayerUserRequest new] postUserRecoreWithTitle:self.model.name albumID:self.model.ID albumImg:self.model.landscape_poster_s currentIndex:_currentIndex watchedTime:watchTime pay:self.model.pay];

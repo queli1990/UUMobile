@@ -56,6 +56,7 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         
         NSString *IP = dic[@"cip"];
+        [[NSUserDefaults standardUserDefaults] setObject:IP forKey:@"IP"];
         NSString *version = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
         NSString *platform = @"mobile-ios";
         NSString *UUID = [[[UIDevice currentDevice] identifierForVendor] UUIDString];

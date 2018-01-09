@@ -28,6 +28,22 @@
     }];
 }
 
+-(void)postUserRequest:(NSDictionary *)params andTransactionSuffix:(NSString *) urlSuffix andBlock:(userHttpResponseBlock)block andFailure:(userHttpResponseBlock)failureBlock{
+    NSString*url = [self buildUrlStr:nil andTransactionSuffix:urlSuffix];
+    //    NSLog(@"url:%@",url);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager POST:url parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        self._data = responseObject;
+        block(self);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        _error = error;
+        failureBlock(self);
+    }];
+}
+
 -(NSString*)buildUrlStr:(NSDictionary *)params andTransactionSuffix:(NSString *) urlSuffix{
     
     NSMutableString *urlString =[NSMutableString string];

@@ -18,4 +18,5 @@ typedef void (^userHttpResponseBlock)(UserBaseRequest *responseData);
 
 - (void) getUserRequest:(NSDictionary *)params andTransactionSuffix:(NSString *)urlSuffix andBlock:(userHttpResponseBlock)block andFailure:(userHttpResponseBlock)failureBlock;
 
+-(void)postUserRequest:(NSDictionary *)params andTransactionSuffix:(NSString *) urlSuffix andBlock:(userHttpResponseBlock)block andFailure:(userHttpResponseBlock)failureBlock;
 @end
