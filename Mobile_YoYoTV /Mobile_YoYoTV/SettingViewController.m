@@ -79,6 +79,7 @@
         cell.arrowImg.hidden = NO;
     }
     cell.textLabel.text = _titlesArray[indexPath.row][@"title"];
+    cell.textLabel.textColor = UIColorFromRGB(0x4A4A4A, 1.0);
     cell.backgroundColor = [UIColor clearColor];
     return cell;
 }

@@ -97,7 +97,7 @@ const CGFloat NavHeight = 64;
     [_resultView requestData];
     __weak __typeof(self) weakSelf = self;
     _resultView.passHomeModel = ^(HomeModel *model) {
-        BOOL isPay = ([[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue]);
+        BOOL isPay = ([[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP499"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP299"] boolValue]);
         if (!isPay && model.pay) {
             NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
             BOOL isLogin = dic;

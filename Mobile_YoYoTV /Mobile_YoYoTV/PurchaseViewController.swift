@@ -12,7 +12,7 @@ import UIKit
 import StoreKit
 
 func isPurchased() -> Bool {
-    let isBuy = UserDefaults.standard.bool(forKey: "com.uu.VIP") || UserDefaults.standard.bool(forKey: "com.uu.VIP499") || UserDefaults.standard.bool(forKey: "com.uu.VIP199")
+    let isBuy = UserDefaults.standard.bool(forKey: "com.uu.VIP") || UserDefaults.standard.bool(forKey: "com.uu.VIP499") || UserDefaults.standard.bool(forKey: "com.uu.VIP199") || UserDefaults.standard.bool(forKey: "com.uu.VIP299")
     return isBuy
 }
 
@@ -40,7 +40,7 @@ func validateSubscriptionIfNeeded() {
     }
     IAP.validateReceipt("f3a2caf8481e4db9a00f1ded035a034c") { (statusCode, products, receipt) in
         if (products == nil || products!.isEmpty) {
-            UserDefaults.standard.set(false, forKey: "com.uu.VIP199")
+            UserDefaults.standard.set(false, forKey: "com.uu.VIP299")
             UserDefaults.standard.synchronize()
             return
         }
@@ -48,6 +48,13 @@ func validateSubscriptionIfNeeded() {
             if (expireDate.timeIntervalSince1970 < now) {
                 print("Subscription expired ...")
                 UserDefaults.standard.set(false, forKey: "com.uu.VIP199")
+                UserDefaults.standard.synchronize()
+            }
+        }
+        if let expireDate = products!["com.uu.VIP299"] {
+            if (expireDate.timeIntervalSince1970 < now) {
+                print("Subscription expired ...")
+                UserDefaults.standard.set(false, forKey: "com.uu.VIP299")
                 UserDefaults.standard.synchronize()
             }
         }
@@ -103,7 +110,7 @@ class PurchaseViewController: UIViewController {
         self.view.backgroundColor = UIColor(red: 227/255.0, green: 131/255.0, blue: 31/255.0, alpha: 1)
         super.viewDidLoad()
         
-        IAP.requestProducts(Set<ProductIdentifier>(arrayLiteral: "com.uu.VIP199"))
+        IAP.requestProducts(Set<ProductIdentifier>(arrayLiteral: "com.uu.VIP299"))
         
         validateSubscriptionIfNeeded()
         
@@ -155,7 +162,7 @@ class PurchaseViewController: UIViewController {
         
         
         let label = UILabel(frame: CGRect(x: 15, y: 0, width: screenWidth-30, height: 0));
-        label.text = "    此订阅自动续费，每月都会自动收费，除非您在当期结束前24小时取消。订阅期长1月，每月收费1.85美元。iTunes 账户续费是在当期结束前24小时内扣费1.85美元。可在iTunes设置中取消此订阅。\n    隐私政策:http://100uu.tv:8099/AppleTV-Versions/policy.html\n    服务协议:http://100uu.tv:8099/AppleTV-Versions/term.html";
+        label.text = "    此订阅自动续费，每月都会自动收费，除非您在当期结束前24小时取消。订阅期长1月，每月收费2.99美元。iTunes 账户续费是在当期结束前24小时内扣费2.99美元。可在iTunes设置中取消此订阅。\n    隐私政策:http://100uu.tv:8099/AppleTV-Versions/policy.html\n    服务协议:http://100uu.tv:8099/AppleTV-Versions/term.html";
 //        label.text = "此订阅自动续费，每月都会自动收费，除非您在当期结束前24小时取消。订阅期长1月，每月收费1.00人民币。iTunes 账户续费是在当期结束前24小时内扣费1.00人民币。可在iTunes设置中取消此订阅。\n    隐私政策:http://100uu.tv:8099/AppleTV-Versions/policy.html\n    服务协议:http://100uu.tv:8099/AppleTV-Versions/term.html";
         label.textColor = UIColor.white;
         label.textAlignment = .left
@@ -208,7 +215,7 @@ class PurchaseViewController: UIViewController {
             let priceLabel:UILabel = UILabel(frame: CGRect(x: 15, y: policyBtn.frame.maxY + 30, width: screenWidth-30, height: 30))
             priceLabel.font = UIFont(name: btnTextFont, size: 28)
             priceLabel.textColor = UIColor(red: 250/255.0, green: 229/255.0, blue: 0/255.0, alpha: 1)
-            priceLabel.text = "USD 1.85 / 月"
+            priceLabel.text = "USD 2.99 / 月"
             priceLabel.textAlignment = .center
             self.view.addSubview(priceLabel)
             
@@ -271,7 +278,7 @@ class PurchaseViewController: UIViewController {
     
     func subscribeClicked(button: UIButton!) {
         showSpinner()
-        IAP.purchaseProduct("com.uu.VIP199", handler: handlePurchase)
+        IAP.purchaseProduct("com.uu.VIP299", handler: handlePurchase)
     }
     
     func restoreClicked(button: UIButton!) {
