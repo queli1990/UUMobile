@@ -47,7 +47,7 @@
         infinitePageView1.titleView.textColor = [UIColor whiteColor];
         infinitePageView1.titleView.margin = 30;
         infinitePageView1.titleView.hidden = YES;
-        infinitePageView1.scrollTimeInterval = 2;
+        infinitePageView1.scrollTimeInterval = 5;
         infinitePageView1.autoScrollToNextPage = YES;
         infinitePageView1.delegate = self;
         [self addSubview:infinitePageView1];

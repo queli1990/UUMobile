@@ -56,11 +56,11 @@
             [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
         }
     }
+//    if (indexPath.row == 1) {
+//        ConversionViewController *vc = [ConversionViewController new];
+//        [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+//    }
     if (indexPath.row == 1) {
-        ConversionViewController *vc = [ConversionViewController new];
-        [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
-    }
-    if (indexPath.row == 2) {
         NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
         BOOL isLogin = userInfo;
         if (isLogin) {
@@ -71,7 +71,7 @@
             [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
         }
     }
-    if (indexPath.row == 3) {
+    if (indexPath.row == 2) {
         if (isLogin) {
             CollectionViewController *vc = [CollectionViewController new];
             [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
@@ -81,7 +81,7 @@
             [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
         }
     }
-    if (indexPath.row == 4) {
+    if (indexPath.row == 3) {
         SettingViewController *vc = [SettingViewController new];
         [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
     }
@@ -150,7 +150,7 @@
         NSDictionary *dic3 = @{@"img":@"Main-playrecord",@"name":@"播放历史"};
         NSDictionary *dic4 = @{@"img":@"Main-collection",@"name":@"我的收藏"};
         NSDictionary *dic5 = @{@"img":@"Main-setting",@"name":@"系统设置"};
-        _contentArray = [NSArray arrayWithObjects:dic1,dic2,dic3,dic4,dic5, nil];
+        _contentArray = [NSArray arrayWithObjects:dic1,dic3,dic4,dic5, nil];
     }
     return _contentArray;
 }

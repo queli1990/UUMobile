@@ -58,6 +58,9 @@
         if ([status isEqualToString:@"2"]) {
             NSLog(@"上传播放历史成功");
         }
+        if ([status isEqualToString:@"1"]) {
+            NSLog(@"token失效，请重新登录");
+        }
     } andFailure:^(UserBaseRequest *responseData) {
         NSLog(@"上传播放历史失败");
     }];

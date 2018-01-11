@@ -13,6 +13,7 @@
 #import "PlayerViewController.h"
 #import "EditNavView.h"
 #import "DeleteFooterView.h"
+#import "NoRecordView.h"
 
 
 @interface PlayHistoryViewController () <UITableViewDelegate,UITableViewDataSource>
@@ -22,7 +23,7 @@
 @property (nonatomic,strong) EditNavView *nav;
 @property (nonatomic,strong) NSMutableArray *deleteArray;
 @property (nonatomic,strong) NSMutableArray *albumIdArray;
-@property (nonatomic,strong) NoResultView *noResultView;
+@property (nonatomic,strong) NoRecordView *noResultView;
 @end
 
 @implementation PlayHistoryViewController
@@ -201,7 +202,7 @@
 }
 
 - (void) initNoResultView {
-    self.noResultView = [[NoResultView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight)];
+    self.noResultView = [[NoRecordView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight)];
     [self.view addSubview:_noResultView];
     _noResultView.hidden = YES;
 }

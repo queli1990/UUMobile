@@ -35,6 +35,10 @@
         self.arrowImg = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth-15-6, (50-12)/2, 6, 12)];
         _arrowImg.image = [UIImage imageNamed:@"ArrowRight"];
         [self.contentView addSubview:_arrowImg];
+        
+        UIView *bgView = [UIView new];
+        bgView.backgroundColor = UIColorFromRGB(0xF5F5F5, 1.0);
+        self.selectedBackgroundView = bgView;
     }
     return self;
 }

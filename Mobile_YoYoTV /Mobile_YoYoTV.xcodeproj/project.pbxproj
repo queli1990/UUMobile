@@ -56,6 +56,8 @@
 		00144DD31FCD3D5600065602 /* CollectionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00144DD21FCD3D5600065602 /* CollectionRequest.m */; };
 		00144DD61FCD3F6B00065602 /* CollectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00144DD51FCD3F6B00065602 /* CollectionModel.m */; };
 		00144DD91FCD755B00065602 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00144DD81FCD755B00065602 /* CollectionViewController.m */; };
+		0015901C20072FE2001C4BB6 /* NoRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0015901B20072FE2001C4BB6 /* NoRecordView.m */; };
+		0015901E2007307E001C4BB6 /* noRecord.png in Resources */ = {isa = PBXBuildFile; fileRef = 0015901D2007307E001C4BB6 /* noRecord.png */; };
 		001A6C2D1EC95ACE00C408E2 /* Home_head_model.m in Sources */ = {isa = PBXBuildFile; fileRef = 001A6C2C1EC95ACE00C408E2 /* Home_head_model.m */; };
 		001A6C341EC990E300C408E2 /* GetBaseHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 001A6C331EC990E300C408E2 /* GetBaseHttpRequest.m */; };
 		001A6C371EC9913400C408E2 /* HomeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 001A6C361EC9913400C408E2 /* HomeRequest.m */; };
@@ -244,6 +246,9 @@
 		00144DD51FCD3F6B00065602 /* CollectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionModel.m; sourceTree = "<group>"; };
 		00144DD71FCD755B00065602 /* CollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
 		00144DD81FCD755B00065602 /* CollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
+		0015901A20072FE2001C4BB6 /* NoRecordView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoRecordView.h; sourceTree = "<group>"; };
+		0015901B20072FE2001C4BB6 /* NoRecordView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoRecordView.m; sourceTree = "<group>"; };
+		0015901D2007307E001C4BB6 /* noRecord.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noRecord.png; sourceTree = "<group>"; };
 		001A6C2B1EC95ACE00C408E2 /* Home_head_model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Home_head_model.h; sourceTree = "<group>"; };
 		001A6C2C1EC95ACE00C408E2 /* Home_head_model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Home_head_model.m; sourceTree = "<group>"; };
 		001A6C321EC990E300C408E2 /* GetBaseHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetBaseHttpRequest.h; sourceTree = "<group>"; };
@@ -504,6 +509,7 @@
 				00144DBC1FC802D200065602 /* bgLogin.png */,
 				00729B641FE2805E007D541F /* wechat_code.png */,
 				00729B651FE2805E007D541F /* weiBo_code.png */,
+				0015901D2007307E001C4BB6 /* noRecord.png */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -755,6 +761,8 @@
 				003C0CB61ED2CFB3004C2C6A /* SearchNav.m */,
 				009E43451ED98B6D00DF39F0 /* NoResultView.h */,
 				009E43461ED98B6D00DF39F0 /* NoResultView.m */,
+				0015901A20072FE2001C4BB6 /* NoRecordView.h */,
+				0015901B20072FE2001C4BB6 /* NoRecordView.m */,
 				00E1E7DF1EDA742500E58C7C /* LoginNav.h */,
 				00E1E7E01EDA742500E58C7C /* LoginNav.m */,
 				00144D141FC3C2F600065602 /* BottomLineBtn.h */,
@@ -1129,6 +1137,7 @@
 				009E42EA1ED6780800DF39F0 /* collection.png in Resources */,
 				00144DC91FC8239F00065602 /* Main-setting.png in Resources */,
 				009E43061ED7CE3C00DF39F0 /* userCollection.png in Resources */,
+				0015901E2007307E001C4BB6 /* noRecord.png in Resources */,
 				00144D8F1FC692CE00065602 /* fourth_normal@2x.png in Resources */,
 				00144DC71FC8237F00065602 /* Main-collection.png in Resources */,
 				009E42E21ED675FD00DF39F0 /* Personal.png in Resources */,
@@ -1369,6 +1378,7 @@
 				003C0CC51ED56EA5004C2C6A /* GenresModel.m in Sources */,
 				009E42F61ED6C60400DF39F0 /* SearchResultModel.m in Sources */,
 				009E42F91ED6C7B500DF39F0 /* SearchResultRequest.m in Sources */,
+				0015901C20072FE2001C4BB6 /* NoRecordView.m in Sources */,
 				001DC25A1EB8663500AEC03D /* AppDelegate.m in Sources */,
 				001DC3241EBC613900AEC03D /* LeftVCTableViewCell.m in Sources */,
 				00C24A081EF7C9340049E20A /* IAPHelper.swift in Sources */,
