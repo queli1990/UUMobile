@@ -24,6 +24,7 @@
 - (void) detailArray:(NSArray *)bigModels {
     NSMutableArray *images = [NSMutableArray array];
     NSMutableArray *titles = [NSMutableArray array];
+    NSMutableArray *pays = [NSMutableArray array];
     for (int i = 0; i<bigModels.count; i++) {
         HomeModel *model = bigModels[i];
         [images addObject:model.landscape_poster];
