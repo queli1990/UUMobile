@@ -22,6 +22,8 @@
 
 @interface BHInfiniteScrollViewCell : UICollectionViewCell
 
+@property (nonatomic,copy) NSString *pay;
+
 - (void)setupWithUrlString:(NSString*)url placeholderImage:(UIImage*)placeholderImage;
 - (void)setupWithImageName:(NSString*)imgName placeholderImage:(UIImage*)placeholderImage;
 - (void)setupWithImage:(UIImage*)img placeholderImage:(UIImage*)placeholderImage;

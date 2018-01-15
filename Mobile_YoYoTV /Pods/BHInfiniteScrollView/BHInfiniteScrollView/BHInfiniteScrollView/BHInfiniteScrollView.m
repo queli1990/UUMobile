@@ -613,6 +613,7 @@
     cell.contentMode = self.pageViewContentMode;
     if (self.imagesArray.count) {
         NSInteger index = indexPath.row % self.imagesArray.count;
+        cell.pay = self.pays[index];
         NSObject* object = [self.imagesArray objectAtIndex:index];
         if ([object isKindOfClass:[NSString class]]) {
             if ([(NSString*)object hasPrefix:@"http"]) {

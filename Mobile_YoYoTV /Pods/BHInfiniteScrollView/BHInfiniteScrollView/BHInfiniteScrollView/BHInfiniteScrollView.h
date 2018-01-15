@@ -68,7 +68,8 @@ typedef NS_ENUM(NSInteger, BHInfiniteScrollViewPageControlAlignVertical) {
 /** 标题数据源 */
 @property (nonatomic, copy) NSArray *titlesArray;
 
-
+/**是否含有VIP标识**/
+@property (nonatomic, copy) NSArray *pays;
 
 /** 轮播图Delegete */
 @property (nonatomic, assign) id<BHInfiniteScrollViewDelegate> delegate;

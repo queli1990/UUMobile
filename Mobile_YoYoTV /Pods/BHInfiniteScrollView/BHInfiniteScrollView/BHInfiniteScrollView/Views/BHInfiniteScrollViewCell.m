@@ -42,10 +42,20 @@
 
 
 - (void)setupWithUrlString:(NSString*)url placeholderImage:(UIImage*)placeholderImage {
+    if ([self.pay isEqualToString:@"1"]) {
+        UIImageView *vipImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        vipImgView.image = [UIImage imageNamed:@"VIP.png"];
+        [self.imageView addSubview:vipImgView];
+    }
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:placeholderImage];
 }
 
 - (void)setupWithImageName:(NSString*)imgName placeholderImage:(UIImage*)placeholderImage {
+    if ([self.pay isEqualToString:@"1"]) {
+        UIImageView *vipImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        vipImgView.image = [UIImage imageNamed:@"VIP.png"];
+        [self.imageView addSubview:vipImgView];
+    }
     UIImage* image = [UIImage imageNamed:imgName];
     if (!image) {
         image  = placeholderImage;

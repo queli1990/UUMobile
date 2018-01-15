@@ -8,6 +8,10 @@
 
 #import "HomeHeadCollectionReusableView.h"
 
+@interface HomeHeadCollectionReusableView ()
+@property (nonatomic,strong) NSMutableArray *pays;
+@end
+
 @implementation HomeHeadCollectionReusableView 
 
 - (instancetype) initWithFrame:(CGRect)frame {
@@ -24,11 +28,11 @@
 - (void) detailArray:(NSArray *)bigModels {
     NSMutableArray *images = [NSMutableArray array];
     NSMutableArray *titles = [NSMutableArray array];
-    NSMutableArray *pays = [NSMutableArray array];
     for (int i = 0; i<bigModels.count; i++) {
         HomeModel *model = bigModels[i];
         [images addObject:model.landscape_poster];
         [titles addObject:model.name];
+        [self.pays addObject:[NSString stringWithFormat:@"%i",model.pay]];
     }
     [self addCirculationScrollView:images andTitleArray:titles];
 }
@@ -41,6 +45,7 @@
         
         BHInfiniteScrollView* infinitePageView1 = [BHInfiniteScrollView
                                                    infiniteScrollViewWithFrame:CGRectMake(0, 0, ScreenWidth, viewHeight) Delegate:self ImagesArray:imageArray PlageHolderImage:[UIImage imageNamed:@"placeholder_16_9"]];
+        infinitePageView1.pays = self.pays;
         infinitePageView1.titlesArray = titleArray;
         infinitePageView1.dotSize = 8;
         infinitePageView1.pageControlAlignmentOffset = CGSizeMake(0, 10);
@@ -85,6 +90,13 @@
     if ([self.delegate respondsToSelector:@selector(didSecectedHomeCirculationScrollViewAnIndex:)]) {
         [self.delegate didSecectedHomeCirculationScrollViewAnIndex:index];
     }
+}
+
+- (NSMutableArray *) pays {
+    if (_pays == nil) {
+        _pays = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _pays;
 }
 
 @end
