@@ -143,6 +143,12 @@
         NSMutableArray *arr = [self dealUrlWidthWithFiles:self.vimeoResponseDic[@"files"] andDownload:self.vimeoResponseDic[@"download"]];
         self.playerModel.title            = _vimeoResponseDic[@"name"];
         self.playerModel.videoURL         = [NSURL URLWithString:arr.lastObject[@"link"]];
+        //判断是否已经播放过
+        if ([_playHistory isKindOfClass:[NSDictionary class]]) {
+            NSString *playedTimeStr = _playHistory[@"playbackProgress"];
+            self.playerModel.seekTime = [playedTimeStr integerValue];
+            _playHistory = nil;
+        }
         [self.playerView resetToPlayNewVideo:self.playerModel];
     }
     if (self.vimeoResponseArray) {
@@ -156,11 +162,6 @@
         self.playerModel.title            = currendDic[@"name"];
         self.playerModel.videoURL         = [NSURL URLWithString:[arr lastObject][@"link"]];
         [self.playerView resetToPlayNewVideo:self.playerModel];
-        if ([_playHistory isKindOfClass:[NSDictionary class]]) {
-            NSString *playedTimeStr = _playHistory[@"playbackProgress"];
-            self.playerView.seekTime = [playedTimeStr integerValue];
-            _playHistory = nil;
-        }
     }
 }
 
@@ -269,11 +270,13 @@
 - (void) postUserData {
     NSString *version = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
     NSString *albumId = [NSString stringWithFormat:@"%@",self.model.ID];
-    int watchTime = (int)self.playerView.player.currentTime.value/self.playerView.player.currentTime.timescale*1000;
-    NSString *isCollection = [NSString stringWithFormat:@"%i",self.isCollected];
-    NSString *endTime = [self getCurrentTime];
-    
-    [[PlayerUserRequest new] postPlayTimeWithVersion:version albumId:albumId albumTitle:self.model.name watchTime:watchTime isCollection:isCollection startTime:self.beginTime endTime:endTime];
+    if (self.playerView.player.currentTime.value) {
+        int watchTime = (int)self.playerView.player.currentTime.value/self.playerView.player.currentTime.timescale*1000;
+        NSString *isCollection = [NSString stringWithFormat:@"%i",self.isCollected];
+        NSString *endTime = [self getCurrentTime];
+        
+        [[PlayerUserRequest new] postPlayTimeWithVersion:version albumId:albumId albumTitle:self.model.name watchTime:watchTime isCollection:isCollection startTime:self.beginTime endTime:endTime];
+    }
     self.beginTime = [self getCurrentTime]; //清空上一次的开始时间
 }
 

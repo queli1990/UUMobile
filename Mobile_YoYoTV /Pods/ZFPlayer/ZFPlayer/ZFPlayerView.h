@@ -26,6 +26,7 @@
 #import "ZFPlayerControlView.h"
 #import "ZFPlayerModel.h"
 #import "ZFPlayerControlViewDelegate.h"
+#import <AVFoundation/AVFoundation.h>
 
 @protocol ZFPlayerDelegate <NSObject>
 @optional
@@ -57,6 +58,11 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 };
 
 @interface ZFPlayerView : UIView <ZFPlayerControlViewDelagate>
+
+/** 播放属性 */
+@property (nonatomic, strong) AVPlayer               *player;
+@property (nonatomic, strong) AVPlayerItem           *playerItem;
+
 
 /** 设置playerLayer的填充模式 */
 @property (nonatomic, assign) ZFPlayerLayerGravity    playerLayerGravity;
