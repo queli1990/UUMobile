@@ -27,7 +27,7 @@ PODS:
   - SVProgressHUD (2.1.2)
   - TLYShyNavBar (1.1.1)
   - TYPagerController (2.0.6)
-  - ZFPlayer (2.1.1):
+  - ZFPlayer (2.1.5):
     - Masonry
 
 DEPENDENCIES:
@@ -56,7 +56,7 @@ SPEC CHECKSUMS:
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   TLYShyNavBar: d200e598923fbc2bd21a5c5efdfabf4898b11da0
   TYPagerController: 043c9063b53cc6d3f6eb937c9dcbf431ae7cad85
-  ZFPlayer: c36657da33c28c75dfb100e98e7976b5b3e1fc10
+  ZFPlayer: 8a80bf8eb4638b97fbceaefcd3ca9978e9f17c9d
 
 PODFILE CHECKSUM: 9e0638bde344c55cb4979692ca7786b44c7e6a08
 
