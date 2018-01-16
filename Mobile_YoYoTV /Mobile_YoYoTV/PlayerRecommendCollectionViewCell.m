@@ -1,28 +1,26 @@
 //
-//  HomeCollectionViewCell.m
+//  PlayerRecommendCollectionViewCell.m
 //  Mobile_YoYoTV
 //
-//  Created by li que on 2017/5/9.
-//  Copyright © 2017年 li que. All rights reserved.
+//  Created by li que on 2018/1/16.
+//  Copyright © 2018年 li que. All rights reserved.
 //
 
-#import "HomeCollectionViewCell.h"
+#import "PlayerRecommendCollectionViewCell.h"
 
-@implementation HomeCollectionViewCell
+@implementation PlayerRecommendCollectionViewCell
 
 - (instancetype) initWithFrame:(CGRect)frame{
-    
     if ( self = [super initWithFrame:frame]) {
-        self.sumImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        self.sumImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height-20)];
         
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, frame.size.height-20, frame.size.width, 20)];
-//        imageView.image = [UIImage imageNamed:@""];
-        imageView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, frame.size.height-18, frame.size.width, 18)];
+        imageView.backgroundColor = [UIColor whiteColor];
         
-        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 20)];
+        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 18)];
         _titleLabel.backgroundColor = [UIColor clearColor];
-        _titleLabel.textColor = [UIColor whiteColor];
-        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleLabel.textColor = UIColorFromRGB(0x808080, 1.0);
+        _titleLabel.textAlignment = NSTextAlignmentLeft;
         _titleLabel.font = [UIFont systemFontOfSize:14.0];
         
         [imageView addSubview:_titleLabel];
@@ -44,9 +42,8 @@
     } else {
         self.vipImgView.hidden = YES;
     }
-//    self.sumImageView.image = [UIImage imageNamed:@"ArrowRight"];
+    //    self.sumImageView.image = [UIImage imageNamed:@"ArrowRight"];
     [self.sumImageView sd_setImageWithURL:[NSURL URLWithString:model.portrait_poster_m] placeholderImage:[UIImage imageNamed:@"placeholder_107_152"]];
 }
-
 
 @end

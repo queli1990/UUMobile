@@ -21,7 +21,7 @@
         self.allSelecteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _allSelecteBtn.frame = CGRectMake(0, 1, ScreenWidth/2, 48);
         [_allSelecteBtn setTitle:@"全选" forState:UIControlStateNormal];
-        [_allSelecteBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_allSelecteBtn setTitleColor:UIColorFromRGB(0x4A4A4A, 1.0) forState:UIControlStateNormal];
         [self addSubview:_allSelecteBtn];
         //中间的分割线
         UILabel *centerLine = [[UILabel alloc] initWithFrame:CGRectMake((ScreenWidth-1)/2, (49-29)/2, 1, 29)];

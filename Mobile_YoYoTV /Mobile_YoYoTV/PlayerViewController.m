@@ -14,7 +14,8 @@
 #import "PlayerRequest.h"
 #import "PlayVCContentView.h"
 #import "StorageHelper.h"
-#import "HomeCollectionViewCell.h"
+//#import "HomeCollectionViewCell.h"
+#import "PlayerRecommendCollectionViewCell.h"
 #import "PlayerCollectionReusableView.h"
 #import "HomeFootCollectionReusableView.h"
 #import "Mobile_YoYoTV-Swift.h"
@@ -384,15 +385,14 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     CGFloat padding = 5;
     CGFloat itemWidth = (ScreenWidth-4*padding)/3.0;
-    CGFloat itemHeight = itemWidth * (152.0/107.0);
-    layout.itemSize    = CGSizeMake(itemWidth, itemHeight); // 设置cell的宽高
+    CGFloat itemHeight = itemWidth * (158.0/113.0)+20;    layout.itemSize    = CGSizeMake(itemWidth, itemHeight); // 设置cell的宽高
     layout.minimumLineSpacing = 5.0;
     layout.minimumInteritemSpacing = 5.0;
     layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
     
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, ScreenWidth*9/16, ScreenWidth, ScreenHeight-ScreenWidth*9/16 - 10) collectionViewLayout:layout];
-    [_collectionView registerClass:[HomeCollectionViewCell class] forCellWithReuseIdentifier:@"HomeCollectionViewCell"];
+    [_collectionView registerClass:[PlayerRecommendCollectionViewCell class] forCellWithReuseIdentifier:@"PlayerRecommendCollectionViewCell"];
     [_collectionView registerClass:[PlayerCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"PlayerCollectionReusableView"];
     [_collectionView registerClass:[HomeFootCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"HomeFootCollectionReusableView"];
     _collectionView.delegate = self;
@@ -415,7 +415,7 @@
 
 //每个cell是什么
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    HomeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HomeCollectionViewCell" forIndexPath:indexPath];
+    PlayerRecommendCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PlayerRecommendCollectionViewCell" forIndexPath:indexPath];
     cell.model = self.storageArray[indexPath.row];
     return cell;
 }

@@ -72,7 +72,7 @@
     if (self.nav.editBtn.selected) { //编辑模式下
         [self.deleteArray addObject:model];
         [self.albumIdArray addObject:model.ID];
-        NSLog(@"%lu",(unsigned long)_deleteArray.count);
+//        NSLog(@"%lu",(unsigned long)_deleteArray.count);
     } else {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         PlayerViewController *VC = [PlayerViewController new];
@@ -86,7 +86,7 @@
     PlayHistoryModel *model = _contentArray[indexPath.row];
     [self.deleteArray removeObject:model];
     [self.albumIdArray removeObject:model.ID];
-    NSLog(@"%lu",(unsigned long)_deleteArray.count);
+//    NSLog(@"%lu",(unsigned long)_deleteArray.count);
 }
 
 - (void) initTableView {
@@ -125,6 +125,11 @@
 // 编辑风格
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
 }
 
 - (DeleteFooterView *)deleteFooterView {

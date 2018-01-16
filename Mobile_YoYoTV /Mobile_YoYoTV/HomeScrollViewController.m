@@ -224,7 +224,7 @@
     _tabBar.frame = CGRectMake(0, (44-44)/2, CGRectGetWidth(self.view.frame)-50, 44);
     _pagerController.view.frame = CGRectMake(0, CGRectGetMaxY(_underNavScrollView.frame), CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)- CGRectGetMaxY(_underNavScrollView.frame));
     if (self.isNavHidden) {
-        self.view.frame = CGRectMake(0, -50, ScreenWidth, 618+50);
+        self.view.frame = CGRectMake(0, -50, ScreenWidth, (ScreenHeight-49)+50);
         _animatedView.hidden = YES;
     }
 }
@@ -285,14 +285,14 @@
     if (scrollView.contentOffset.y > 0) {//向上滑动，隐藏
         if (self.view.frame.origin.y == -50) return ;
         [UIView animateWithDuration:0.25 animations:^{
-            self.view.frame = CGRectMake(0, -50, ScreenWidth, 618+50);
+            self.view.frame = CGRectMake(0, -50, ScreenWidth, (ScreenHeight-49)+50);
             _animatedView.hidden = YES;
             _isNavHidden = YES;
         }];
     } else { //下滑，显示
         if (self.view.frame.origin.y == 0) return ;
         [UIView animateWithDuration:0.25 animations:^{
-            self.view.frame = CGRectMake(0, 0, ScreenWidth, 618);
+            self.view.frame = CGRectMake(0, 0, ScreenWidth, (ScreenHeight-49));
             _animatedView.hidden = NO;
             _isNavHidden = NO;
         } completion:^(BOOL finished) {

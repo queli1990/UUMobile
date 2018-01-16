@@ -10,8 +10,37 @@
 
 @implementation PlayHistoryTableViewCell
 
+//自定义对勾的图片
+- (void) setSelected:(BOOL)selected animated:(BOOL)animated{
+    
+    if (!self.editing) return;
+    [super setSelected:selected animated:animated];
+    if (self.isEditing && self.isSelected) {
+        //这里定义了cell就改变自定义控件的颜色
+        self.textLabel.backgroundColor = [UIColor clearColor];
+        UIControl *control = [self.subviews lastObject];
+        UIImageView * imgView = [[control subviews] objectAtIndex:0];
+        imgView.image = [UIImage imageNamed:@"Main-selected"];
+    }
+    if (self.editing) {
+        //去掉默认的选中背景色
+        self.contentView.backgroundColor = [UIColor clearColor];
+        UIView *backGroundView = [[UIView alloc] init];
+        backGroundView.backgroundColor = [UIColor clearColor];
+        self.selectedBackgroundView = backGroundView;
+        
+        self.timeLabel.backgroundColor = [UIColor clearColor];//去掉label的默认蓝色
+        self.titleLabel.backgroundColor = [UIColor clearColor];
+    }
+}
+
+-(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
+    return;
+}
+
 - (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        
         //height = 90
         CGFloat horGap = 16.0;//水平间隙
         CGFloat verGap = 6.0;//竖直间隙
@@ -52,17 +81,10 @@
     [self.sumImageView sd_setImageWithURL:[NSURL URLWithString:model.albumImg] placeholderImage:[UIImage imageNamed:@"placeholder_16_9"]];
 }
 
-
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
 
 @end
