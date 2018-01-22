@@ -24,6 +24,7 @@ PODS:
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
+  - SpotX-SDK (2.3.3)
   - SVProgressHUD (2.1.2)
   - TLYShyNavBar (1.1.1)
   - TYPagerController (2.0.6)
@@ -39,6 +40,7 @@ DEPENDENCIES:
   - MJRefresh
   - RDVTabBarController
   - SDWebImage (~> 3.8)
+  - SpotX-SDK
   - SVProgressHUD
   - TLYShyNavBar
   - TYPagerController
@@ -53,11 +55,12 @@ SPEC CHECKSUMS:
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   RDVTabBarController: 67794f7a7a37f8e32f046f85ac67d06ab92d624a
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  SpotX-SDK: 486548664d1eb4bd52383ea95ebc1c4512cf41af
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   TLYShyNavBar: d200e598923fbc2bd21a5c5efdfabf4898b11da0
   TYPagerController: 043c9063b53cc6d3f6eb937c9dcbf431ae7cad85
   ZFPlayer: 8a80bf8eb4638b97fbceaefcd3ca9978e9f17c9d
 
-PODFILE CHECKSUM: 9e0638bde344c55cb4979692ca7786b44c7e6a08
+PODFILE CHECKSUM: 35523d45e215ff426345c37bf02848f54cf2e3d9
 
 COCOAPODS: 1.3.1

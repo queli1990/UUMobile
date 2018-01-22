@@ -1,0 +1,1 @@
+../../../../SpotX-SDK/SpotX.framework/Headers/SpotX.h

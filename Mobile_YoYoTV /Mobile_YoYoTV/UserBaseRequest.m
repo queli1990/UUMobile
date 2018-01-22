@@ -7,7 +7,8 @@
 //
 
 #import "UserBaseRequest.h"
-#define baseURL_vego @"http://api.100uu.tv/app/member"//线上
+//#define baseURL_vego @"http://api.100uu.tv/app/member"//线上
+#define baseURL_vego @"http://dw4f3k6eh2fyb.cloudfront.net/"
 
 
 @implementation UserBaseRequest

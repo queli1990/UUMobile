@@ -7,8 +7,8 @@
 //
 
 #import "PostBaseHttpRequest.h"
-#define baseURL_vego @"http://api.100uu.tv/"
-//#define baseURL_vego @"http://dw4f3k6eh2fyb.cloudfront.net/"
+//#define baseURL_vego @"http://api.100uu.tv/"
+#define baseURL_vego @"http://dw4f3k6eh2fyb.cloudfront.net/"
 
 @implementation PostBaseHttpRequest
 

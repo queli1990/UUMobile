@@ -22,9 +22,11 @@
 #import "LoginViewController.h"
 #import "NSString+encrypto.h"
 #import "PlayerUserRequest.h"
+@import SpotX;
 
 
-@interface PlayerViewController ()<ZFPlayerDelegate,selectedIndexDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface PlayerViewController ()<ZFPlayerDelegate,selectedIndexDelegate,UICollectionViewDelegate,UICollectionViewDataSource,SpotXAdDelegate>
+@property (nonatomic,strong) SpotXView *ad;
 /** 播放器View的父视图*/
 @property (strong, nonatomic) UIView *playerFatherView;
 @property (strong, nonatomic) ZFPlayerView *playerView;
@@ -82,12 +84,12 @@
     [[PlayerUserRequest new] requestUserVideoInfoWithID:[NSString stringWithFormat:@"%@",self.model.ID] andBlock:^(PlayerUserRequest *responseData) {
         self.isCollected = responseData.isCollected;
         self.playHistory = responseData.playHistory;
-        [self requestVimeoData];
     } andFilureBlock:^(PlayerUserRequest *responseData) {
         [ShowToast showToastWithString:@"获取用户播放记录失败" withBackgroundColor:[UIColor orangeColor] withTextFont:14];
     }];
+    [self requestVimeoData];
 }
-
+/**请求viemeo接口**/
 - (void) requestVimeoData {
     PlayerRequest *request = [PlayerRequest new];
     request.genre_id = self.model.genre_id;
@@ -124,7 +126,6 @@
                 }
             }
             isHaveInitCollectionView ? [_collectionView reloadData] : [self initCollectionView];
-//            _isFromBtnClick = NO;
             [self setNewModel];
             [SVProgressHUD dismiss];
         } andFailureBlock:^(PlayerRequest *responseData) {
@@ -139,6 +140,11 @@
 /**设置播放的model**/
 /**当前只考虑默认进入页面，即index=0时，如果user选集的话另做考虑**/
 - (void) setNewModel {
+    BOOL isPay = ([[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP499"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP299"] boolValue]);
+    if (!isPay) {
+        [_ad show]; // 加载广告
+        [_playerView.player pause];
+    }
     if (self.vimeoResponseDic) {
         //将当前剧集的所有url从大到小排列
         NSMutableArray *arr = [self dealUrlWidthWithFiles:self.vimeoResponseDic[@"files"] andDownload:self.vimeoResponseDic[@"download"]];
@@ -166,28 +172,6 @@
     }
 }
 
-- (NSMutableArray *) dealUrlWidthWithFiles:(NSArray *)filesArray andDownload:(NSArray *)downloadsArray {
-    NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:0];
-    for (int i = 0; i<filesArray.count; i++) {
-        PlayerModel *model = filesArray[i];
-        [tempArray addObject:model];
-    }
-    for (int i = 0; i<downloadsArray.count; i++) {
-        PlayerModel *model = downloadsArray[i];
-        [tempArray addObject:model];
-    }
-    [tempArray sortUsingComparator:^NSComparisonResult(id _Nonnull obj1, id _Nonnull obj2)
-    {
-        //此处的规则含义为：若前一元素比后一元素小，则返回降序（即后一元素在前，为从大到小排列）
-        if ([obj1[@"size"] integerValue] < [obj2[@"size"] integerValue]){
-            return NSOrderedDescending;
-        } else {
-            return NSOrderedAscending;
-        }
-    }];
-    return tempArray;
-}
-
 /**当点中某一集的时候的代理方法**/
 - (void)selectedButton:(UIButton *)btn {
 #pragma mark 播放记录
@@ -200,9 +184,38 @@
 //    _isFromBtnClick = YES;
     [self setNewModel];
 }
+/**加载广告**/
+- (void) loadNextAd {
+    _ad = [[SpotXView alloc] initWithFrame:self.view.bounds];
+    _ad.delegate = self;
+    _ad.channelID = @"85394";
+    
+    [_ad startLoading];
+}
+
+- (void) presentViewController:(UIViewController *)viewControllerToPresent {
+    [self presentViewController:viewControllerToPresent animated:YES completion:nil];
+}
+
+- (void)adClosed {
+    [self removeSpotView];
+}
+
+- (void) adSkipped {
+    [self removeSpotView];
+}
+
+- (void) removeSpotView {
+    [_playerView.player play];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self loadNextAd]; //加载广告资源
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [SpotX initializeWithApiKey:nil category:@"IAB1" section:@"Fiction" domain:@"com.spotxchange.demo" url:@""];
+    [self loadNextAd];
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.currentIndex = 0;
@@ -538,6 +551,28 @@
     } andFilureBlock:^(PlayerUserRequest *responseData) {
         [ShowToast showToastWithString:@"收藏网络发生错误" withBackgroundColor:[UIColor orangeColor] withTextFont:14];
     }];
+}
+//将剧集排序
+- (NSMutableArray *) dealUrlWidthWithFiles:(NSArray *)filesArray andDownload:(NSArray *)downloadsArray {
+    NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:0];
+    for (int i = 0; i<filesArray.count; i++) {
+        PlayerModel *model = filesArray[i];
+        [tempArray addObject:model];
+    }
+    for (int i = 0; i<downloadsArray.count; i++) {
+        PlayerModel *model = downloadsArray[i];
+        [tempArray addObject:model];
+    }
+    [tempArray sortUsingComparator:^NSComparisonResult(id _Nonnull obj1, id _Nonnull obj2)
+     {
+         //此处的规则含义为：若前一元素比后一元素小，则返回降序（即后一元素在前，为从大到小排列）
+         if ([obj1[@"size"] integerValue] < [obj2[@"size"] integerValue]){
+             return NSOrderedDescending;
+         } else {
+             return NSOrderedAscending;
+         }
+     }];
+    return tempArray;
 }
 
 - (NSArray *)storageArray {
