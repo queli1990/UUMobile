@@ -141,10 +141,16 @@
 /**当前只考虑默认进入页面，即index=0时，如果user选集的话另做考虑**/
 - (void) setNewModel {
     BOOL isPay = ([[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP499"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP299"] boolValue]);
+    //如果没有支付，就先不加载视频，而是去播放广告。等广告播放完毕再加载视频
     if (!isPay) {
+        [self loadNextAd]; //加载广告资源
         [_ad show]; // 加载广告
-        [_playerView.player pause];
+    } else {
+        [self setModelUrl];
     }
+}
+
+- (void) setModelUrl {
     if (self.vimeoResponseDic) {
         //将当前剧集的所有url从大到小排列
         NSMutableArray *arr = [self dealUrlWidthWithFiles:self.vimeoResponseDic[@"files"] andDownload:self.vimeoResponseDic[@"download"]];
@@ -176,12 +182,10 @@
 - (void)selectedButton:(UIButton *)btn {
 #pragma mark 播放记录
     [self postPlayRecord];
-    
     NSInteger index = btn.tag - 1000;
     if (index == _currentIndex) return;
     btn.selected = YES;
     _currentIndex = index;
-//    _isFromBtnClick = YES;
     [self setNewModel];
 }
 /**加载广告**/
@@ -189,7 +193,6 @@
     _ad = [[SpotXView alloc] initWithFrame:self.view.bounds];
     _ad.delegate = self;
     _ad.channelID = @"85394";
-    
     [_ad startLoading];
 }
 
@@ -206,16 +209,15 @@
 }
 
 - (void) removeSpotView {
-    [_playerView.player play];
+//    [_playerView.player play];
+    [self setModelUrl];
     [self dismissViewControllerAnimated:YES completion:nil];
-    [self loadNextAd]; //加载广告资源
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [SpotX initializeWithApiKey:nil category:@"IAB1" section:@"Fiction" domain:@"com.spotxchange.demo" url:@""];
-    [self loadNextAd];
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.currentIndex = 0;

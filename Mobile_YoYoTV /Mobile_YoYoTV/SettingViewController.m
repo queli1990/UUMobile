@@ -67,7 +67,7 @@
     cell.backgroundView.backgroundColor = [UIColor whiteColor];
     if (indexPath.row == 0) {
         UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth-60-15, (50-20)/2, 60, 20)];
-        newLabel.text = @"V2.0";
+        newLabel.text = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
 //        newLabel.backgroundColor = UIColorFromRGB(0x7ED321, 1.0);
         newLabel.font = [UIFont systemFontOfSize:13];
         newLabel.textAlignment = NSTextAlignmentRight;
