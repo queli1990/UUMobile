@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface NoRecordView : UIView
-
+@property (nonatomic,strong) UILabel *alertLabel;
 @end

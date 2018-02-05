@@ -192,7 +192,7 @@
 - (void) loadNextAd {
     _ad = [[SpotXView alloc] initWithFrame:self.view.bounds];
     _ad.delegate = self;
-    _ad.channelID = @"85394";
+    _ad.channelID = @"217968";
     [_ad startLoading];
 }
 

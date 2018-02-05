@@ -29,6 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self setupNav];
     [self initTableView];
     [self initNoResultView];
@@ -215,7 +216,8 @@
 }
 
 - (void) initNoResultView {
-    self.noResultView = [[NoRecordView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight)];
+    self.noResultView = [[NoRecordView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+    _noResultView.alertLabel.text = @"暂未收藏，快添加你喜欢的影片吧";
     [self.view addSubview:_noResultView];
     _noResultView.hidden = YES;
 }

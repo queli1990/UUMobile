@@ -14,6 +14,8 @@
 #import "EditNavView.h"
 #import "DeleteFooterView.h"
 #import "NoRecordView.h"
+#import "LoginViewController.h"
+#import "Mobile_YoYoTV-Swift.h"
 
 
 @interface PlayHistoryViewController () <UITableViewDelegate,UITableViewDataSource>
@@ -69,16 +71,31 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     PlayHistoryModel *model = _contentArray[indexPath.row];
+    BOOL isPay = ([[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP499"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP299"] boolValue]);
     if (self.nav.editBtn.selected) { //编辑模式下
         [self.deleteArray addObject:model];
         [self.albumIdArray addObject:model.ID];
 //        NSLog(@"%lu",(unsigned long)_deleteArray.count);
     } else {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        PlayerViewController *VC = [PlayerViewController new];
-        VC.isHideTabbar = YES;
-        VC.ID = model.albumId;
-        [[PushHelper new] pushController:VC withOldController:self.navigationController andSetTabBarHidden:YES];
+        if (!isPay && model.pay) {
+            NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+            BOOL isLogin = dic;
+            if (isLogin) {
+                PurchaseViewController *vc = [PurchaseViewController new];
+                vc.isHideTab = YES;
+                [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+            } else {
+                LoginViewController *vc = [LoginViewController new];
+                vc.isHide = YES;
+                [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+            }
+        } else {
+            PlayerViewController *VC = [PlayerViewController new];
+            VC.isHideTabbar = YES;
+            VC.ID = model.albumId;
+            [[PushHelper new] pushController:VC withOldController:self.navigationController andSetTabBarHidden:YES];
+        }
     }
 }
 
@@ -208,6 +225,7 @@
 
 - (void) initNoResultView {
     self.noResultView = [[NoRecordView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight)];
+    _noResultView.alertLabel.text = @"暂未播放，快播放你喜欢的影片吧";
     [self.view addSubview:_noResultView];
     _noResultView.hidden = YES;
 }

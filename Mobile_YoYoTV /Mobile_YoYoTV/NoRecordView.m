@@ -20,14 +20,13 @@
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake((ScreenWidth-123)/2, originalHeight, 123, imgHeight)];
         imgView.image = [UIImage imageNamed:@"noRecord"];
         
-        UILabel *alertLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(imgView.frame)+gap, ScreenWidth, 20)];
-        alertLabel.textColor = UIColorFromRGB(0xFFBE7D, 1.0);
-        alertLabel.text = @"暂未播放，快播放你喜欢的影片吧";
-        alertLabel.textAlignment = NSTextAlignmentCenter;
-        alertLabel.font = [UIFont systemFontOfSize:14.0];
+        self.alertLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(imgView.frame)+gap, ScreenWidth, 20)];
+        _alertLabel.textColor = UIColorFromRGB(0xFFBE7D, 1.0);
+        _alertLabel.textAlignment = NSTextAlignmentCenter;
+        _alertLabel.font = [UIFont systemFontOfSize:14.0];
         
         [self addSubview:imgView];
-        [self addSubview:alertLabel];
+        [self addSubview:_alertLabel];
     }
     return self;
 }

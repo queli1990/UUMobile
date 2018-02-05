@@ -15,7 +15,7 @@
 -(void)basePostDataRequest:(NSDictionary *)params andTransactionSuffix:(NSString *) urlSuffix andBlock:(PostBasehttpResponseBlock)block andFailure:(PostBasehttpResponseBlock)failureBlock{
     
     NSString*url = [self buildUrlStr:nil andTransactionSuffix:urlSuffix];
-    //    NSLog(@"url:%@",url);
+//    NSLog(@"url:%@",url);
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];

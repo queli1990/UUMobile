@@ -18,6 +18,7 @@
 @property (nonatomic,strong) NSMutableArray *contentArray;
 @property (nonatomic,strong) UICollectionView *collectionView;
 @property (nonatomic) int requestPage;
+@property (nonatomic) BOOL isPulling;
 @end
 
 @implementation ListViewController
@@ -34,6 +35,7 @@
 }
 
 - (void) requestData:(int) page {
+    _isPulling = YES;
     [SVProgressHUD showWithStatus:@"loading"];
     
     ListRequest *request = [ListRequest new];
@@ -41,7 +43,7 @@
     request.currentPage = page;
     [request requestData:nil andBlock:^(ListRequest *responseData) {
         //NSLog(@"%@success",NSStringFromClass([self class]));
-        
+        _isPulling = NO;
         if (responseData.responseData.count > 0) {
             [self.contentArray addObjectsFromArray:responseData.responseData];
             [self.collectionView reloadData];
@@ -83,12 +85,14 @@
     _collectionView.backgroundColor = [UIColor whiteColor];
     //下拉刷新
     _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        if (_isPulling == YES) return ;
         [self.contentArray removeAllObjects];
         _requestPage = 1;
         [self requestData:_requestPage];
     }];
     //加载更多
     self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        if (_isPulling == YES) return;
         _requestPage += 1;
         [self requestData:_requestPage];
     }];

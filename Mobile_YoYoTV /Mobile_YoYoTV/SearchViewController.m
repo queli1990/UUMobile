@@ -41,14 +41,20 @@ const CGFloat NavHeight = 64;
 - (void) requestDataForHotSearch {
     [SVProgressHUD showWithStatus:@"loading"];
     [[HotSearchRequest alloc] requestData:nil andBlock:^(HotSearchRequest *responseData) {
-        SuccessLog(NSStringFromClass([self class]));
+//        SuccessLog(NSStringFromClass([self class]));
         self.datas = responseData.responseData;
-        [self initTableView];
+        self.tableView ? [self reloadTableView] : [self initTableView];
         [SVProgressHUD dismiss];
     } andFailureBlock:^(HotSearchRequest *responseData) {
-        FailLog(NSStringFromClass([self class]));
+//        FailLog(NSStringFromClass([self class]));
         [SVProgressHUD showWithStatus:@"请检查网络"];
     }];
+}
+
+- (void) reloadTableView {
+    _tableView.hidden = NO;
+    [self addTableViewHeadView];
+    [self.tableView reloadData];
 }
 
 - (void) initTableView {
@@ -72,7 +78,11 @@ const CGFloat NavHeight = 64;
         }else {
             itemCount = (int)historyArray.count/2 + 1;
         }
-        self.historyView = [[SearchHistory alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 36+itemCount*(32+15))];
+        if (self.historyView) {
+            _historyView.frame = CGRectMake(0, 0, ScreenWidth, 36+itemCount*(32+15));
+        } else {
+            self.historyView = [[SearchHistory alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 36+itemCount*(32+15))];
+        }
         _historyView.backgroundColor = [UIColor whiteColor];
         _historyView.delegate = self;
         [_historyView addHistoryView:historyArray];
@@ -194,7 +204,7 @@ const CGFloat NavHeight = 64;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    _nav.cancelLabel.hidden = _isTabPage ? true : false;
+//    _nav.cancelLabel.hidden = _isTabPage ? true : false;
 }
 
 //点击回车
@@ -263,13 +273,12 @@ const CGFloat NavHeight = 64;
 }
 
 - (void) goBack:(UITapGestureRecognizer *)tap {
-//    if (_isHideTab) {
-//
-//    } else {
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }
-    
-    [[PushHelper new] popController:self WithNavigationController:self.navigationController andSetTabBarHidden:NO];
+    if (_isTabPage) {
+        [_resultView removeFromSuperview];
+        [self requestDataForHotSearch];
+    } else {
+        [[PushHelper new] popController:self WithNavigationController:self.navigationController andSetTabBarHidden:NO];
+    }
 }
 
 @end
