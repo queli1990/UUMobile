@@ -46,6 +46,12 @@
         UIImageView *vipImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
         vipImgView.image = [UIImage imageNamed:@"VIP.png"];
         [self.imageView addSubview:vipImgView];
+    } else {
+        for (UIView *view in _imageView.subviews) {
+            if (view.frame.size.height == 40) {
+                view.hidden = YES;
+            }
+        }
     }
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:placeholderImage];
 }

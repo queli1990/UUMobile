@@ -614,6 +614,7 @@
     if (self.imagesArray.count) {
         NSInteger index = indexPath.row % self.imagesArray.count;
         cell.pay = self.pays[index];
+//        NSLog(@"index:%ld,pay:%@",(long)index,cell.pay);
         NSObject* object = [self.imagesArray objectAtIndex:index];
         if ([object isKindOfClass:[NSString class]]) {
             if ([(NSString*)object hasPrefix:@"http"]) {

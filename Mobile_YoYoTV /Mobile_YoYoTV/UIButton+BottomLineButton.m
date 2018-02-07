@@ -19,7 +19,7 @@ static const char *kLineProperty = "line";
     return orignalBtn;
 }
 
-- (UILabel *)line {
+- (UILabel *) line {
     return objc_getAssociatedObject(self, kLineProperty);
 }
 

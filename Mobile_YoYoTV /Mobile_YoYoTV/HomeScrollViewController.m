@@ -191,8 +191,11 @@
         [shadowView addGestureRecognizer:tap];
     }
     //获取所有的button，然后对当前的button添加下划线
-    UIButton *lastBtn = [_channelsView.subviews[0] subviews][_lastIndex];
-    lastBtn.line.hidden = YES;
+//    UIButton *lastBtn = [_channelsView.subviews[0] subviews][_lastIndex];
+//    lastBtn.line.hidden = YES;
+    for (UIButton *btn in [_channelsView.subviews[0] subviews]) {
+        btn.line.hidden = YES;
+    }
     UIButton *selectedBtn = [_channelsView.subviews[0] subviews][_currentIndex];
     selectedBtn.line.hidden = NO;
     
