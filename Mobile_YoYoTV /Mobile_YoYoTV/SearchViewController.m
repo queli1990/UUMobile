@@ -109,17 +109,20 @@ const CGFloat NavHeight = 64;
     _resultView.passHomeModel = ^(HomeModel *model) {
         BOOL isPay = ([[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP499"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP299"] boolValue]);
         if (!isPay && model.pay) {
-            NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-            BOOL isLogin = dic;
-            if (isLogin) {
-                PurchaseViewController *vc = [PurchaseViewController new];
-                vc.isHideTab = weakSelf.isTabPage ? false : true;
-                [[PushHelper new] pushController:vc withOldController:weakSelf.navigationController andSetTabBarHidden:YES];
-            } else {
-                LoginViewController *vc = [LoginViewController new];
-                vc.isHide = weakSelf.isTabPage ? false : true;
-                [[PushHelper new] pushController:vc withOldController:weakSelf.navigationController andSetTabBarHidden:YES];
-            }
+//            NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+//            BOOL isLogin = dic;
+//            if (isLogin) {
+//                PurchaseViewController *vc = [PurchaseViewController new];
+//                vc.isHideTab = weakSelf.isTabPage ? false : true;
+//                [[PushHelper new] pushController:vc withOldController:weakSelf.navigationController andSetTabBarHidden:YES];
+//            } else {
+//                LoginViewController *vc = [LoginViewController new];
+//                vc.isHide = weakSelf.isTabPage ? false : true;
+//                [[PushHelper new] pushController:vc withOldController:weakSelf.navigationController andSetTabBarHidden:YES];
+//            }
+            PurchaseViewController *vc = [PurchaseViewController new];
+            vc.isHideTab = weakSelf.isTabPage ? false : true;
+            [[PushHelper new] pushController:vc withOldController:weakSelf.navigationController andSetTabBarHidden:YES];
         } else {
             PlayerViewController *vc = [[PlayerViewController alloc] init];
             BOOL hidden = weakSelf.isTabPage ? false : true;

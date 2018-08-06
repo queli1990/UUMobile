@@ -79,17 +79,20 @@
     } else {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         if (!isPay && model.pay) {
-            NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-            BOOL isLogin = dic;
-            if (isLogin) {
-                PurchaseViewController *vc = [PurchaseViewController new];
-                vc.isHideTab = YES;
-                [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
-            } else {
-                LoginViewController *vc = [LoginViewController new];
-                vc.isHide = YES;
-                [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
-            }
+//            NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+//            BOOL isLogin = dic;
+//            if (isLogin) {
+//                PurchaseViewController *vc = [PurchaseViewController new];
+//                vc.isHideTab = YES;
+//                [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+//            } else {
+//                LoginViewController *vc = [LoginViewController new];
+//                vc.isHide = YES;
+//                [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
+//            }
+            PurchaseViewController *vc = [PurchaseViewController new];
+            vc.isHideTab = NO;
+            [[PushHelper new] pushController:vc withOldController:self.navigationController andSetTabBarHidden:YES];
         } else {
             PlayerViewController *VC = [PlayerViewController new];
             VC.isHideTabbar = YES;

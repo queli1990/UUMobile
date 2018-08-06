@@ -162,10 +162,11 @@
     [params setObject:password forKey:@"password"];
     [params setObject:platform forKey:@"platform"];
     [params setObject:md5Str forKey:@"sign"];
-    
+    btn.userInteractionEnabled = NO;//禁止连续点击
     [[PostBaseHttpRequest alloc] basePostDataRequest:params andTransactionSuffix:@"app/member/doLogin.do" andBlock:^(PostBaseHttpRequest *responseData) {
         NSDictionary *userDic = [NSJSONSerialization JSONObjectWithData:responseData._data options:NSJSONReadingMutableContainers error:nil];
         NSString *statusString = userDic[@"status"];
+        btn.userInteractionEnabled = YES;//恢复点击
         if ([statusString isEqualToString:@"1"]) {
             [ShowToast showToastWithString:@"登录成功" withBackgroundColor:[UIColor orangeColor] withTextFont:18];
             [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"userInfo"];
@@ -187,6 +188,7 @@
          */
     } andFailure:^(PostBaseHttpRequest *responseData) {
         [ShowToast showToastWithString:@"登录失败请查看网络" withBackgroundColor:[UIColor orangeColor] withTextFont:18];
+        btn.userInteractionEnabled = YES;//恢复点击
     }];
 }
 

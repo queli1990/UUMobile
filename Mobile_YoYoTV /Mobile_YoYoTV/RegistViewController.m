@@ -199,10 +199,11 @@ static SEL extracted() {
     [params setObject:platform forKey:@"platform"];
     [params setObject:channel forKey:@"channel"];
     [params setObject:md5Str forKey:@"sign"];
-    
+    btn.userInteractionEnabled = NO;//点击之后，不允许用户连续点击
     [[PostBaseHttpRequest alloc] basePostDataRequest:params andTransactionSuffix:@"app/member/doRegister.do" andBlock:^(PostBaseHttpRequest *responseData) {
         NSDictionary *userDic = [NSJSONSerialization JSONObjectWithData:responseData._data options:NSJSONReadingMutableContainers error:nil];
         NSString *statusString = userDic[@"status"];
+        btn.userInteractionEnabled = YES;//恢复按钮的点击
         if ([statusString isEqualToString:@"2"]) {
             [ShowToast showToastWithString:@"注册成功" withBackgroundColor:[UIColor orangeColor] withTextFont:18];
             [self.navigationController popViewControllerAnimated:YES];
@@ -222,6 +223,7 @@ static SEL extracted() {
          */
     } andFailure:^(PostBaseHttpRequest *responseData) {
         [ShowToast showToastWithString:@"注册失败请查看网络" withBackgroundColor:[UIColor orangeColor] withTextFont:18];
+        btn.userInteractionEnabled = YES;//恢复按钮的点击
     }];
 }
 

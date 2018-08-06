@@ -16,7 +16,6 @@ target 'Mobile_YoYoTV' do
   pod 'BHInfiniteScrollView'
   pod 'TYPagerController'
   pod 'TLYShyNavBar'
-  pod 'SpotX-SDK'
 
 
   # Pods for Mobile_YoYoTV

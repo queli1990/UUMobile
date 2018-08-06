@@ -22,11 +22,11 @@
 #import "LoginViewController.h"
 #import "NSString+encrypto.h"
 #import "PlayerUserRequest.h"
-@import SpotX;
+//@import SpotX;
 
 
-@interface PlayerViewController ()<ZFPlayerDelegate,selectedIndexDelegate,UICollectionViewDelegate,UICollectionViewDataSource,SpotXAdDelegate>
-@property (nonatomic,strong) SpotXView *ad;
+@interface PlayerViewController ()<ZFPlayerDelegate,selectedIndexDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+//@property (nonatomic,strong) SpotXView *ad;
 /** 播放器View的父视图*/
 @property (strong, nonatomic) UIView *playerFatherView;
 @property (strong, nonatomic) ZFPlayerView *playerView;
@@ -82,10 +82,13 @@
     }
     [SVProgressHUD showWithStatus:@"loading"];
     [[PlayerUserRequest new] requestUserVideoInfoWithID:[NSString stringWithFormat:@"%@",self.model.ID] andBlock:^(PlayerUserRequest *responseData) {
+//        [SVProgressHUD dismiss];
         self.isCollected = responseData.isCollected;
         self.playHistory = responseData.playHistory;
     } andFilureBlock:^(PlayerUserRequest *responseData) {
         [ShowToast showToastWithString:@"获取用户播放记录失败" withBackgroundColor:[UIColor orangeColor] withTextFont:14];
+        [SVProgressHUD showWithStatus:@"请检查网络"];
+        [SVProgressHUD dismissWithDelay:2];
     }];
     [self requestVimeoData];
 }
@@ -97,6 +100,7 @@
     request.vimeo_id = self.model.vimeo_id;
     request.vimeo_token = self.model.vimeo_token;
     request.regexName = self.model.name;
+    [SVProgressHUD showWithStatus:@"loading"];
     [request requestVimeoPlayurl:^(PlayerRequest *responseData) {
         PlayerRequest *vimeoRequest = responseData;
         
@@ -129,7 +133,8 @@
             [self setNewModel];
             [SVProgressHUD dismiss];
         } andFailureBlock:^(PlayerRequest *responseData) {
-            
+            [SVProgressHUD showWithStatus:@"请检查网络"];
+            [SVProgressHUD dismissWithDelay:2];
         }];
     } andFailureBlock:^(PlayerRequest *responseData) {
         [SVProgressHUD showWithStatus:@"请检查网络"];
@@ -143,8 +148,9 @@
     BOOL isPay = ([[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP499"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP299"] boolValue]);
     //如果没有支付，就先不加载视频，而是去播放广告。等广告播放完毕再加载视频
     if (!isPay) {
-        [self loadNextAd]; //加载广告资源
-        [_ad show]; // 加载广告
+//        [self loadNextAd]; //加载广告资源
+//        [_ad show]; // 加载广告
+        [self setModelUrl];
     } else {
         [self setModelUrl];
     }
@@ -189,24 +195,24 @@
     [self setNewModel];
 }
 /**加载广告**/
-- (void) loadNextAd {
-    _ad = [[SpotXView alloc] initWithFrame:self.view.bounds];
-    _ad.delegate = self;
-    _ad.channelID = @"217968";
-    [_ad startLoading];
-}
+//- (void) loadNextAd {
+//    _ad = [[SpotXView alloc] initWithFrame:self.view.bounds];
+//    _ad.delegate = self;
+//    _ad.channelID = @"217968";
+//    [_ad startLoading];
+//}
 
-- (void) presentViewController:(UIViewController *)viewControllerToPresent {
-    [self presentViewController:viewControllerToPresent animated:YES completion:nil];
-}
+//- (void) presentViewController:(UIViewController *)viewControllerToPresent {
+//    [self presentViewController:viewControllerToPresent animated:YES completion:nil];
+//}
 
-- (void)adClosed {
-    [self removeSpotView];
-}
+//- (void)adClosed {
+//    [self removeSpotView];
+//}
 
-- (void) adSkipped {
-    [self removeSpotView];
-}
+//- (void) adSkipped {
+//    [self removeSpotView];
+//}
 
 - (void) removeSpotView {
 //    [_playerView.player play];
@@ -217,7 +223,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [SpotX initializeWithApiKey:nil category:@"IAB1" section:@"Fiction" domain:@"com.spotxchange.demo" url:@""];
+//    [SpotX initializeWithApiKey:nil category:@"IAB1" section:@"Fiction" domain:@"com.spotxchange.demo" url:@""];
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.currentIndex = 0;
@@ -250,7 +256,7 @@
         make.height.mas_equalTo(self.playerFatherView.mas_width).multipliedBy(9.0f/16.0f);
     }];
     // 自动播放，默认不自动播放
-    //[self.playerView autoPlayTheVideo];
+//    [self.playerView autoPlayTheVideo];
 }
 
 // 返回值要必须为NO
@@ -466,6 +472,9 @@
 
 //点中cell的相应事件
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    //先暂停播放
+    [_playerView pause];
+    
     _playHistory = nil;
 #pragma mark 播放记录
     [self postPlayRecord];
@@ -473,18 +482,21 @@
     HomeModel *model = self.storageArray[indexPath.row];
     BOOL isPay = ([[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP499"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP199"] boolValue] || [[[NSUserDefaults standardUserDefaults] objectForKey:@"com.uu.VIP299"] boolValue]);
     if (!isPay && model.pay) {
-        NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
-        BOOL isLogin = dic;
-        if (isLogin) {
-            PurchaseViewController *vc = [PurchaseViewController new];
-            vc.isHideTab = YES;
-            [self.navigationController pushViewController:vc animated:YES];
-        } else {
-            LoginViewController *vc = [LoginViewController new];
-            vc.isHide = YES;
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        [_playerView pause];
+//        NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"userInfo"];
+//        BOOL isLogin = dic;
+//        if (isLogin) {
+//            PurchaseViewController *vc = [PurchaseViewController new];
+//            vc.isHideTab = YES;
+//            [self.navigationController pushViewController:vc animated:YES];
+//        } else {
+//            LoginViewController *vc = [LoginViewController new];
+//            vc.isHide = YES;
+//            [self.navigationController pushViewController:vc animated:YES];
+//        }
+        PurchaseViewController *vc = [PurchaseViewController new];
+        vc.isHideTab = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        
         return;
     }
     

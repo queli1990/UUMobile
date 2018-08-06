@@ -1074,7 +1074,7 @@
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = UA783A5Y5N;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					001DC26A1EB8663600AEC03D = {
 						CreatedOnToolsVersion = 8.3.1;
@@ -1264,7 +1264,6 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Mobile_YoYoTV-Mobile_YoYoTVTests/Pods-Mobile_YoYoTV-Mobile_YoYoTVTests-resources.sh",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
-				"${PODS_ROOT}/SpotX-SDK/SpotXAssets.bundle",
 				"${PODS_ROOT}/ZFPlayer/ZFPlayer/ZFPlayer.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -1318,7 +1317,6 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Mobile_YoYoTV/Pods-Mobile_YoYoTV-resources.sh",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
-				"${PODS_ROOT}/SpotX-SDK/SpotXAssets.bundle",
 				"${PODS_ROOT}/ZFPlayer/ZFPlayer/ZFPlayer.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -1603,7 +1601,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = UA783A5Y5N;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Mobile_YoYoTV/PCH.pch";
 				INFOPLIST_FILE = Mobile_YoYoTV/Info.plist;
@@ -1611,8 +1611,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.uu.YoYoVideo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "09978ee0-9a8d-4831-938e-cf6fe00fa19b";
+				PROVISIONING_PROFILE_SPECIFIER = YoYoVideo_dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "Mobile_YoYoTV/Mobile_YoYoTV-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1627,7 +1627,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = UA783A5Y5N;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Mobile_YoYoTV/PCH.pch";
 				INFOPLIST_FILE = Mobile_YoYoTV/Info.plist;
@@ -1635,8 +1637,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.uu.YoYoVideo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "d72f43fa-c565-4fc3-8378-db00e667bed8";
+				PROVISIONING_PROFILE_SPECIFIER = YoYoMobile;
 				SWIFT_OBJC_BRIDGING_HEADER = "Mobile_YoYoTV/Mobile_YoYoTV-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
